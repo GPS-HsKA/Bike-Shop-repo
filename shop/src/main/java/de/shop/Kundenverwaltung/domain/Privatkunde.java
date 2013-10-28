@@ -1,5 +1,5 @@
 package de.shop.Kundenverwaltung.domain;
 
-public class Privatkunde {
+public class Privatkunde extends Kunde{
 
 }
