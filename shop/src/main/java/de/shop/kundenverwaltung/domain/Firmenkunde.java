@@ -1,5 +1,5 @@
-package de.shop.Kundenverwaltung.domain;
+package de.shop.kundenverwaltung.domain;
 
-public class Firmenkunde extends Kunde{
+public class Firmenkunde {
 
 }
