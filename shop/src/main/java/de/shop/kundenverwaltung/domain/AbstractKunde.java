@@ -5,18 +5,30 @@ import java.net.URI;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlSeeAlso;
+
+import org.codehaus.jackson.annotate.JsonTypeInfo;
+
 import de.shop.bestellverwaltung.domain.Bestellungen;
 
 @XmlRootElement
-
+@XmlSeeAlso({ Firmenkunde.class, Privatkunde.class })
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
+// @JsonSubTypes({
+//	@Type(value = Privatkunde.class, name = AbstractKunde.PRIVATKUNDE),
+//	@Type(value = Firmenkunde.class, name = AbstractKunde.FIRMENKUNDE) })
 public abstract class AbstractKunde implements Serializable
 
 {
 	/**
 	 * 
 	 */
+	
+	public static final String PRIVATKUNDE = "P";
+	public static final String FIRMENKUNDE = "F";
+	
 	private static final long serialVersionUID = -89734504223897613L;
-	private Long kunden_id;
+	private Long kundenId;
 	private String nachname;
 	private String email;
 	private Adresse adresse;
@@ -27,11 +39,11 @@ public abstract class AbstractKunde implements Serializable
 	
 	// Getter und Setter für Attribute
 	
-	public Long getKunden_id() {
-		return kunden_id;
+	public Long getKundenId() {
+		return kundenId;
 	}
 	public void setKunden_id(Long kunden_id) {
-		this.kunden_id = kunden_id;
+		this.kundenId = kunden_id;
 	}
 	public String getNachname() {
 		return nachname;
@@ -72,5 +84,36 @@ public abstract class AbstractKunde implements Serializable
 	{
 		this.bestellungsUri = bestellungenUri;
 	
+	}
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((email == null) ? 0 : email.hashCode());
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		AbstractKunde other = (AbstractKunde) obj;
+		if (email == null) {
+			if (other.email != null)
+				return false;
+		}
+		else if (!email.equals(other.email))
+			return false;
+		return true;
+	}
+	
+	@Override
+	public String toString() {
+		return "AbstractKunde [id=" + kundenId + ", nachname=" + nachname + ", email=" + email
+			   + ", bestellungenUri=" + bestellungsUri + "]";
 	}
 }
