@@ -1,5 +1,7 @@
 package de.shop.kundenverwaltung.domain;
 
-public class Privatkunde {
+import javax.xml.bind.annotation.XmlRootElement;
+
+public class Privatkunde extends AbstractKunde{
 
 }
