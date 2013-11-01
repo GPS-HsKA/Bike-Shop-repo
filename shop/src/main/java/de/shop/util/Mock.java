@@ -43,6 +43,8 @@ public final class Mock {
 			return null;
 		}
 		
+		throw 
+		
 		final Artikel tart = new Artikel();
 		tart.setArtikelnummer(id.intValue());
 		tart.setBeschreibeung("Testbeschreibung ab sdfsdf sdaf fg!!");
