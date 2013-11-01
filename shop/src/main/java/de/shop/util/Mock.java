@@ -5,20 +5,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-//import de.shop.artikelverwaltung.rest.ArtikelResource;
-//import de.shop.bestellverwaltung.domain.Bestellung;
-//import de.shop.kundenverwaltung.domain.AbstractKunde;
-//import de.shop.kundenverwaltung.domain.Adresse;
-//import de.shop.kundenverwaltung.domain.Firmenkunde;
-//import de.shop.kundenverwaltung.domain.HobbyType;
-//import de.shop.kundenverwaltung.domain.Privatkunde;
-
-
-
-
-
-
-
 import de.shop.artikelverwaltung.domain.Artikel;
 import de.shop.bestellverwaltung.domain.Bestellungen;
 import de.shop.kundenverwaltung.domain.AbstractKunde;
