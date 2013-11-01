@@ -39,13 +39,24 @@ public class ArtikelResource {
 	
 	@GET
 	@Path("{id:[1-9][0-9]*}")
-	public Response ArtikelById(@PathParam("id") Long id) {
+	public Response ArtikelById(@PathParam("id") Integer id) {
 		
+		if (id == null )
+		{
+			// TODO Exception 
+		}
 		// TODO implementierung 
 		final Response response = Response.ok()
                                           .build();
 		
 		return response;
+	}
+	
+	@GET
+	@Path("{id:[1-9][0-9]*}/zub")
+	public Response ZubehoerListeById(@PathParam("id") Long id) {
+		
+	}
 	}
 	
 	

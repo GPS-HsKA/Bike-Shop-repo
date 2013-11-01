@@ -8,6 +8,9 @@ import java.util.List;
 
 import javax.xml.bind.annotation.XmlRootElement;
 //import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlTransient;
+
+import de.shop.util.rest.UriHelper;
 
 @XmlRootElement
 public class Artikel implements Serializable {
@@ -22,7 +25,11 @@ public class Artikel implements Serializable {
 	private String name;
 	private String beschreibeung;
 	private int artikelnummer;
+	
+	
+	@XmlTransient
 	private List<Artikel> zubehoer;	
+	private UriHelper zubehoerListe;
 	
 	public double getPreis() {
 		return preis;
@@ -53,6 +60,12 @@ public class Artikel implements Serializable {
 	}
 	public void setZubehoer(List<Artikel> zubehoer) {
 		this.zubehoer = zubehoer;
+	}
+	public UriHelper getZubehoerListe() {
+		return zubehoerListe;
+	}
+	public void setZubehoerListe(UriHelper zubehoerListe) {
+		this.zubehoerListe = zubehoerListe;
 	}
 	
 }
