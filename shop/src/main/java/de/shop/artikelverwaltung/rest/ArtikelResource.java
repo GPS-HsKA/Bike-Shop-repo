@@ -45,10 +45,6 @@ public class ArtikelResource {
 	@Path("{id:[1-9][0-9]*}")
 	public Response ArtikelById(@PathParam("id") Integer id) {
 		
-		if (id == null )
-		{
-			// TODO Exception 
-		}
 		 
 		final Artikel artikel = Mock.listArticle(id);
 		
@@ -56,11 +52,11 @@ public class ArtikelResource {
 			
 			throw new NotFoundException("Es wurde kein Artikel mit der ID " + id + " gefunden.");
 		}
-		
-		final Response response = Response.ok()
-				.links(getTransitionalLinks(artikel, uriInfo) )
-                                          .build();
-		
+//		
+//		final Response response = Response.ok()
+//										  .links(getTransitionalLinks(artikel, uriInfo) )
+//                                          .build();
+		final Response response = Response.ok();
 		return response;
 	}
 	
