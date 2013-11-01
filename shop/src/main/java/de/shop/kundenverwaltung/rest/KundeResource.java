@@ -68,7 +68,7 @@ public class KundeResource {
 	@GET
 	@Path("{" + KUNDEN_ID_PATH_PARAM + ":[1-9][0-9]*}")
 	public Response findKundeById(@PathParam(KUNDEN_ID_PATH_PARAM) Long id) {
-		// TODO Anwendungskern statt Mock, Verwendung von Locale
+		// TODO Anwendungskern statt Mock, Verwendung von Locale (return null)
 //		final AbstractKunde kunde = Mock.findKundeById(id);
 //		if (kunde == null) {
 //			throw new NotFoundException("Kein Kunde mit der ID " + id + " gefunden.");
@@ -89,7 +89,7 @@ public class KundeResource {
 	}
 	
 	private URI getUriBestellungen(AbstractKunde kunde, UriInfo uriInfo) {
-		return uriHelper.getUri(KundeResource.class, "findBestellungenByKundeId", kunde.getId(), uriInfo);
+		return uriHelper.getUri(KundeResource.class, "findBestellungenByKundeId", kunde.getKundenId(), uriInfo);
 	}		
 	
 	public Link[] getTransitionalLinks(AbstractKunde kunde, UriInfo uriInfo) {
@@ -105,7 +105,7 @@ public class KundeResource {
                                 .rel(UPDATE_LINK)
                                 .build();
 
-		final Link remove = Link.fromUri(uriHelper.getUri(KundeResource.class, "deleteKunde", kunde.getId(), uriInfo))
+		final Link remove = Link.fromUri(uriHelper.getUri(KundeResource.class, "deleteKunde", kunde.getKundenId(), uriInfo))
                                 .rel(REMOVE_LINK)
                                 .build();
 		
@@ -114,35 +114,37 @@ public class KundeResource {
 
 	
 	public URI getUriKunde(AbstractKunde kunde, UriInfo uriInfo) {
-		return uriHelper.getUri(KundeResource.class, "findKundeById", kunde.getId(), uriInfo);
+		return uriHelper.getUri(KundeResource.class, "findKundeById", kunde.getKundenId(), uriInfo);
 	}
 
 	
 	@GET
 	public Response findKundenByNachname(@QueryParam(KUNDEN_NACHNAME_QUERY_PARAM) String nachname) {
 		List<? extends AbstractKunde> kunden = null;
-		if (nachname != null) {
+//		if (nachname != null) {
+			// TODO Anwendungskern statt Mock, Verwendung von Locale (return null)
+//			kunden = Mock.findKundenByNachname(nachname);
+//			if (kunden.isEmpty()) {
+//				throw new NotFoundException("Kein Kunde mit Nachname " + nachname + " gefunden.");
+//			}
+//
+//		}
+//		else {
 			// TODO Anwendungskern statt Mock, Verwendung von Locale
-			kunden = Mock.findKundenByNachname(nachname);
-			if (kunden.isEmpty()) {
-				throw new NotFoundException("Kein Kunde mit Nachname " + nachname + " gefunden.");
-			}
-		}
-		else {
-			// TODO Anwendungskern statt Mock, Verwendung von Locale
-			kunden = Mock.findAllKunden();
-			if (kunden.isEmpty()) {
-				throw new NotFoundException("Keine Kunden vorhanden.");
-			}
-		}
-		
-		for (AbstractKunde k : kunden) {
-			setStructuralLinks(k, uriInfo);
-		}
-		
-		return Response.ok(new GenericEntity<List<? extends AbstractKunde>>(kunden){})
-                       .links(getTransitionalLinksKunden(kunden, uriInfo))
-                       .build();
+//			kunden = Mock.findAllKunden();
+//			if (kunden.isEmpty()) {
+//				throw new NotFoundException("Keine Kunden vorhanden.");
+//			}
+//		}
+//		
+//		for (AbstractKunde k : kunden) {
+//			setStructuralLinks(k, uriInfo);
+//		}
+//		
+//		return Response.ok(new GenericEntity<List<? extends AbstractKunde>>(kunden){})
+//                       .links(getTransitionalLinksKunden(kunden, uriInfo))
+//                       .build();
+		return null;
 	}
 	
 	private Link[] getTransitionalLinksKunden(List<? extends AbstractKunde> kunden, UriInfo uriInfo) {
@@ -164,24 +166,25 @@ public class KundeResource {
 	@GET
 	@Path("{id:[1-9][0-9]*}/bestellungen")
 	public Response findBestellungenByKundeId(@PathParam("id") Long kundeId) {
-		// TODO Anwendungskern statt Mock, Verwendung von Locale
-		final AbstractKunde kunde = Mock.findKundeById(kundeId);
-		final List<Bestellung> bestellungen = Mock.findBestellungenByKunde(kunde);
-		if (bestellungen.isEmpty()) {
-			throw new NotFoundException("Zur ID " + kundeId + " wurden keine Bestellungen gefunden");
-		}
-		
-		// URIs innerhalb der gefundenen Bestellungen anpassen
-		for (Bestellung bestellung : bestellungen) {
-			bestellungResource.setStructuralLinks(bestellung, uriInfo);
-		}
-		
-		return Response.ok(new GenericEntity<List<Bestellung>>(bestellungen){})
-                       .links(getTransitionalLinksBestellungen(bestellungen, kunde, uriInfo))
-                       .build();
+		// TODO Anwendungskern statt Mock, Verwendung von Locale (return null)
+//		final AbstractKunde kunde = Mock.findKundeById(kundeId);
+//		final List<Bestellung> bestellungen = Mock.findBestellungenByKunde(kunde);
+//		if (bestellungen.isEmpty()) {
+//			throw new NotFoundException("Zur ID " + kundeId + " wurden keine Bestellungen gefunden");
+//		}
+//		
+//		// URIs innerhalb der gefundenen Bestellungen anpassen
+//		for (Bestellung bestellung : bestellungen) {
+//			bestellungResource.setStructuralLinks(bestellung, uriInfo);
+//		}
+//		
+//		return Response.ok(new GenericEntity<List<Bestellung>>(bestellungen){})
+//                       .links(getTransitionalLinksBestellungen(bestellungen, kunde, uriInfo))
+//                       .build();
+		return null;
 	}
 	
-	private Link[] getTransitionalLinksBestellungen(List<Bestellung> bestellungen, AbstractKunde kunde, UriInfo uriInfo) {
+	private Link[] getTransitionalLinksBestellungen(List<Bestellungen> bestellungen, AbstractKunde kunde, UriInfo uriInfo) {
 		if (bestellungen == null || bestellungen.isEmpty()) {
 			return new Link[0];
 		}
@@ -206,10 +209,11 @@ public class KundeResource {
 	@Consumes({APPLICATION_JSON, APPLICATION_XML, TEXT_XML })
 	@Produces
 	public Response createKunde(AbstractKunde kunde) {
-		// TODO Anwendungskern statt Mock, Verwendung von Locale
-		kunde = Mock.createKunde(kunde);
-		return Response.created(getUriKunde(kunde, uriInfo))
-			           .build();
+		// TODO Anwendungskern statt Mock, Verwendung von Locale (return null)
+//		kunde = Mock.createKunde(kunde);
+//		return Response.created(getUriKunde(kunde, uriInfo))
+//			           .build();
+		return null;
 	}
 	
 	@PUT
@@ -217,7 +221,7 @@ public class KundeResource {
 	@Produces
 	public void updateKunde(AbstractKunde kunde) {
 		// TODO Anwendungskern statt Mock, Verwendung von Locale
-		Mock.updateKunde(kunde);
+//		Mock.updateKunde(kunde);
 	}
 	
 	@DELETE
@@ -225,6 +229,6 @@ public class KundeResource {
 	@Produces
 	public void deleteKunde(@PathParam("id") Long kundeId) {
 		// TODO Anwendungskern statt Mock, Verwendung von Locale
-		Mock.deleteKunde(kundeId);
+//		Mock.deleteKunde(kundeId);
 	}
 }
