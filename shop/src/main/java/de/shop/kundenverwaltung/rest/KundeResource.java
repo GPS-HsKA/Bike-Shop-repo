@@ -34,8 +34,6 @@ import de.shop.bestellverwaltung.domain.Bestellungen;
 import de.shop.bestellverwaltung.rest.BestellungResource;
 import de.shop.kundenverwaltung.domain.AbstractKunde;
 import de.shop.util.Mock;
-//FIXME FETCH and Pull Mock
-//import de.shop.util.Mock;
 import de.shop.util.rest.UriHelper;
 import de.shop.util.rest.NotFoundException;
 
@@ -69,17 +67,16 @@ public class KundeResource {
 	@Path("{" + KUNDEN_ID_PATH_PARAM + ":[1-9][0-9]*}")
 	public Response findKundeById(@PathParam(KUNDEN_ID_PATH_PARAM) Long id) {
 		// TODO Anwendungskern statt Mock, Verwendung von Locale
-//		final AbstractKunde kunde = Mock.findKundeById(id);
-//		if (kunde == null) {
-//			throw new NotFoundException("Kein Kunde mit der ID " + id + " gefunden.");
-//		}
-//		
-//		setStructuralLinks(kunde, uriInfo);
-//		
-//		return Response.ok(kunde)
-//                       .links(getTransitionalLinks(kunde, uriInfo))
-//                       .build();
-		return null;
+		final AbstractKunde kunde = Mock.findKundeById(id);
+		if (kunde == null) {
+			throw new NotFoundException("Kein Kunde mit der ID " + id + " gefunden.");
+		}
+		
+		setStructuralLinks(kunde, uriInfo);
+		
+		return Response.ok(kunde)
+                       .links(getTransitionalLinks(kunde, uriInfo))
+                       .build();
 
 	}
 	
