@@ -21,7 +21,7 @@ import javax.ws.rs.core.UriInfo;
 import de.shop.bestellverwaltung.domain.Bestellungen;
 import de.shop.kundenverwaltung.domain.AbstractKunde;
 import de.shop.kundenverwaltung.rest.KundeResource;
-//import de.shop.util.Mock;
+import de.shop.util.Mock;
 import de.shop.util.rest.UriHelper;
 import de.shop.util.rest.NotFoundException;
 
@@ -43,30 +43,29 @@ public class BestellungResource {
 	@Path("{id:[1-9][0-9]*}")
 	public Response findBestellungById(@PathParam("id") Long id) {
 		// TODO Mock anlegen Anwendungskern statt Mock, Verwendung von Locale
-//		final Bestellungen bestellung = Mock.findBestellungById(id);
-//		if (bestellung == null) {
-//			throw new NotFoundException("Keine Bestellung mit der ID " + id + " gefunden.");
-//		}
-//		
-//		setStructuralLinks(bestellung, uriInfo);
-//		
-//		// Link-Header setzen
-//		final Response response = Response.ok(bestellung)
-//                                          .links(getTransitionalLinks(bestellung, uriInfo))
-//                                          .build();
-//		
-//		return response;
-		return null;
+		final Bestellungen bestellung = Mock.findBestellungById(id);
+		if (bestellung == null) {
+			throw new NotFoundException("Keine Bestellung mit der ID " + id + " gefunden.");
+		}
+		
+		setStructuralLinks(bestellung, uriInfo);
+		
+		// Link-Header setzen
+		final Response response = Response.ok(bestellung)
+                                          .links(getTransitionalLinks(bestellung, uriInfo))
+                                          .build();
+		
+		return response;
 	}
 	
 	public void setStructuralLinks(Bestellungen bestellung, UriInfo uriInfo) {
 		// URI fuer Kunde setzen
 		// TODO KundeResource Funktionen anlegen
-//		final AbstractKunde kunde = bestellung.getKunde();
-//		if (kunde != null) {
-//			final URI kundeUri = kundeResource.getUriKunde(bestellung.getKunde(), uriInfo);
-//			bestellung.setKundeUri(kundeUri);
-//		}
+		final AbstractKunde kunde = bestellung.getKunde();
+		if (kunde != null) {
+			final URI kundeUri = kundeResource.getUriKunde(bestellung.getKunde(), uriInfo);
+			bestellung.setKundeUri(kundeUri);
+		}
 	}
 	
 	private Link[] getTransitionalLinks(Bestellungen bestellung, UriInfo uriInfo) {
