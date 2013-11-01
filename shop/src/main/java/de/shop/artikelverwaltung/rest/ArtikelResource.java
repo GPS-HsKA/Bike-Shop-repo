@@ -55,7 +55,7 @@ public class ArtikelResource {
 	@GET
 	@Path("{id:[1-9][0-9]*}/zub")
 	public Response ZubehoerListeById(@PathParam("id") Long id) {
-		
+			return null;
 	}
 	}
 	
@@ -71,5 +71,5 @@ public class ArtikelResource {
 //	}
 
 	
-	
-}
+
+
