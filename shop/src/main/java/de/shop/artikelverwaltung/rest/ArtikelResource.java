@@ -52,11 +52,11 @@ public class ArtikelResource {
 			
 			throw new NotFoundException("Es wurde kein Artikel mit der ID " + id + " gefunden.");
 		}
-//		
-//		final Response response = Response.ok()
-//										  .links(getTransitionalLinks(artikel, uriInfo) )
-//                                          .build();
-		final Response response = Response.ok();
+		
+		final Response response = Response.ok()
+										  .links(getTransitionalLinks(artikel, uriInfo) )
+                                          .build();
+		//final Response response = Response.ok();
 		return response;
 	}
 	
