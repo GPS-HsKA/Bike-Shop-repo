@@ -27,7 +27,7 @@ public final class Mock {
 
 	// Eigener Code
 	
-	public static Artikel listArticle(Long id){
+	public static Artikel listArticle(Integer id){
 		
 		if (id > MAX_ID){
 			return null;

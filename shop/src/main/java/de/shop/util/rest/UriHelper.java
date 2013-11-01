@@ -20,4 +20,10 @@ public class UriHelper {
 		              .path(clazz, methodName)
 		              .build(id);
 	}
+	public URI getUri(Class<?> clazz, String methodName, Integer id, UriInfo uriInfo) {
+		return uriInfo.getBaseUriBuilder()
+		              .path(clazz)
+		              .path(clazz, methodName)
+		              .build(id);
+	}
 }
