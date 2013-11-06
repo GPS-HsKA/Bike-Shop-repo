@@ -25,7 +25,9 @@ import de.shop.util.Mock;
 import de.shop.util.rest.UriHelper;
 import de.shop.util.rest.NotFoundException;
 
-
+/**
+ * @author <a href="mailto:Juergen.Zimmermann@HS-Karlsruhe.de">J&uuml;rgen Zimmermann</a>
+ */
 @Path("/bestellungen")
 @Produces({ APPLICATION_JSON, APPLICATION_XML + ";qs=0.75", TEXT_XML + ";qs=0.5" })
 @Consumes
@@ -42,7 +44,7 @@ public class BestellungResource {
 	@GET
 	@Path("{id:[1-9][0-9]*}")
 	public Response findBestellungById(@PathParam("id") Long id) {
-		// TODO Mock anlegen Anwendungskern statt Mock, Verwendung von Locale
+		// TODO Anwendungskern statt Mock, Verwendung von Locale
 		final Bestellung bestellung = Mock.findBestellungById(id);
 		if (bestellung == null) {
 			throw new NotFoundException("Keine Bestellung mit der ID " + id + " gefunden.");
@@ -60,7 +62,6 @@ public class BestellungResource {
 	
 	public void setStructuralLinks(Bestellung bestellung, UriInfo uriInfo) {
 		// URI fuer Kunde setzen
-		// TODO KundeResource Funktionen anlegen
 		final AbstractKunde kunde = bestellung.getKunde();
 		if (kunde != null) {
 			final URI kundeUri = kundeResource.getUriKunde(bestellung.getKunde(), uriInfo);
