@@ -18,7 +18,7 @@ import javax.ws.rs.core.Link;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
-import de.shop.bestellverwaltung.domain.Bestellungen;
+import de.shop.bestellverwaltung.domain.Bestellung;
 import de.shop.kundenverwaltung.domain.AbstractKunde;
 import de.shop.kundenverwaltung.rest.KundeResource;
 import de.shop.util.Mock;
@@ -43,7 +43,7 @@ public class BestellungResource {
 	@Path("{id:[1-9][0-9]*}")
 	public Response findBestellungById(@PathParam("id") Long id) {
 		// TODO Mock anlegen Anwendungskern statt Mock, Verwendung von Locale
-		final Bestellungen bestellung = Mock.findBestellungById(id);
+		final Bestellung bestellung = Mock.findBestellungById(id);
 		if (bestellung == null) {
 			throw new NotFoundException("Keine Bestellung mit der ID " + id + " gefunden.");
 		}
@@ -58,7 +58,7 @@ public class BestellungResource {
 		return response;
 	}
 	
-	public void setStructuralLinks(Bestellungen bestellung, UriInfo uriInfo) {
+	public void setStructuralLinks(Bestellung bestellung, UriInfo uriInfo) {
 		// URI fuer Kunde setzen
 		// TODO KundeResource Funktionen anlegen
 		final AbstractKunde kunde = bestellung.getKunde();
@@ -68,14 +68,14 @@ public class BestellungResource {
 		}
 	}
 	
-	private Link[] getTransitionalLinks(Bestellungen bestellung, UriInfo uriInfo) {
+	private Link[] getTransitionalLinks(Bestellung bestellung, UriInfo uriInfo) {
 		final Link self = Link.fromUri(getUriBestellung(bestellung, uriInfo))
                               .rel(SELF_LINK)
                               .build();
 		return new Link[] { self };
 	}
 	
-	public URI getUriBestellung(Bestellungen bestellung, UriInfo uriInfo) {
+	public URI getUriBestellung(Bestellung bestellung, UriInfo uriInfo) {
 		return uriHelper.getUri(BestellungResource.class, "findBestellungById", bestellung.getId(), uriInfo);
 	}
 }

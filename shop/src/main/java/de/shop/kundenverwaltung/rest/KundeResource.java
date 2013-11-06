@@ -30,7 +30,7 @@ import javax.ws.rs.core.Link;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
-import de.shop.bestellverwaltung.domain.Bestellungen;
+import de.shop.bestellverwaltung.domain.Bestellung;
 import de.shop.bestellverwaltung.rest.BestellungResource;
 import de.shop.kundenverwaltung.domain.AbstractKunde;
 import de.shop.util.Mock;
@@ -165,22 +165,22 @@ public class KundeResource {
 	public Response findBestellungenByKundeId(@PathParam("id") Long kundeId) {
 		// TODO Anwendungskern statt Mock, Verwendung von Locale (return null)
 		final AbstractKunde kunde = Mock.findKundeById(kundeId);
-		final List<Bestellungen> bestellungen = Mock.findBestellungenByKunde(kunde);
+		final List<Bestellung> bestellungen = Mock.findBestellungenByKunde(kunde);
 		if (bestellungen.isEmpty()) {
 			throw new NotFoundException("Zur ID " + kundeId + " wurden keine Bestellungen gefunden");
 		}
 		
 		// URIs innerhalb der gefundenen Bestellungen anpassen
-		for (Bestellungen bestellung : bestellungen) {
+		for (Bestellung bestellung : bestellungen) {
 			bestellungResource.setStructuralLinks(bestellung, uriInfo);
 		}
 		
-		return Response.ok(new GenericEntity<List<Bestellungen>>(bestellungen){})
+		return Response.ok(new GenericEntity<List<Bestellung>>(bestellungen){})
                        .links(getTransitionalLinksBestellungen(bestellungen, kunde, uriInfo))
                        .build();
 	}
 	
-	private Link[] getTransitionalLinksBestellungen(List<Bestellungen> bestellungen, AbstractKunde kunde, UriInfo uriInfo) {
+	private Link[] getTransitionalLinksBestellungen(List<Bestellung> bestellungen, AbstractKunde kunde, UriInfo uriInfo) {
 		if (bestellungen == null || bestellungen.isEmpty()) {
 			return new Link[0];
 		}

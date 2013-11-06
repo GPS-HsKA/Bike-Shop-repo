@@ -10,7 +10,7 @@ import javax.xml.bind.annotation.XmlSeeAlso;
 import org.codehaus.jackson.annotate.JsonSubTypes;
 import org.codehaus.jackson.annotate.JsonTypeInfo;
 
-import de.shop.bestellverwaltung.domain.Bestellungen;
+import de.shop.bestellverwaltung.domain.Bestellung;
 
 @XmlRootElement
 @XmlSeeAlso({ Firmenkunde.class, Privatkunde.class })
@@ -34,7 +34,7 @@ public abstract class AbstractKunde implements Serializable
 	private String email;
 	private Adresse adresse;
 	
-	private List<Bestellungen> Bestellliste;
+	private List<Bestellung> Bestellliste;
 	
 	private URI bestellungsUri;
 	
@@ -43,8 +43,8 @@ public abstract class AbstractKunde implements Serializable
 	public Long getKundenId() {
 		return kundenId;
 	}
-	public void setKunden_id(Long kunden_id) {
-		this.kundenId = kunden_id;
+	public void setKundenId(Long kundenId) {
+		this.kundenId = kundenId;
 	}
 	public String getNachname() {
 		return nachname;
@@ -70,10 +70,10 @@ public abstract class AbstractKunde implements Serializable
 	public void setBestellungsUri(URI bestellungsUri) {
 		this.bestellungsUri = bestellungsUri;
 	}
-	public List<Bestellungen> getBestellungen() {
+	public List<Bestellung> getBestellungen() {
 		return Bestellliste;
 	}
-	public void setBestellungen(List<Bestellungen> bestellungen) {
+	public void setBestellungen(List<Bestellung> bestellungen) {
 		this.Bestellliste = bestellungen;
 	}
 

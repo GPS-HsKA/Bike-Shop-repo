@@ -9,7 +9,7 @@ import javax.xml.bind.annotation.XmlTransient;
 import de.shop.kundenverwaltung.domain.AbstractKunde;
 
 @XmlRootElement
-public class Bestellungen implements Serializable{
+public class Bestellung implements Serializable{
 
 	private static final long serialVersionUID = -60930025346804068L;
 	
@@ -69,7 +69,7 @@ public class Bestellungen implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Bestellungen other = (Bestellungen) obj;
+		Bestellung other = (Bestellung) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;

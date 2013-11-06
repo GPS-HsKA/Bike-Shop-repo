@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 import de.shop.artikelverwaltung.domain.Artikel;
-import de.shop.bestellverwaltung.domain.Bestellungen;
+import de.shop.bestellverwaltung.domain.Bestellung;
 import de.shop.kundenverwaltung.domain.AbstractKunde;
 import de.shop.kundenverwaltung.domain.Adresse;
 import de.shop.kundenverwaltung.domain.Firmenkunde;
@@ -51,7 +51,7 @@ public final class Mock {
 		}
 		
 		final AbstractKunde kunde = id % 2 == 1 ? new Privatkunde() : new Firmenkunde();
-		kunde.setKunden_id(id);
+		kunde.setKundenId(id);
 		kunde.setNachname("Nachname" + id);
 		kunde.setEmail("" + id + "@hska.de");
 		
@@ -95,12 +95,12 @@ public final class Mock {
 	}
 	
 
-	public static List<Bestellungen> findBestellungenByKunde(AbstractKunde kunde) {
+	public static List<Bestellung> findBestellungenByKunde(AbstractKunde kunde) {
 		// Beziehungsgeflecht zwischen Kunde und Bestellungen aufbauen
 		final int anzahl = kunde.getKundenId().intValue() % MAX_BESTELLUNGEN + 1;  // 1, 2, 3 oder 4 Bestellungen
-		final List<Bestellungen> bestellungen = new ArrayList<>(anzahl);
+		final List<Bestellung> bestellungen = new ArrayList<>(anzahl);
 		for (int i = 1; i <= anzahl; i++) {
-			final Bestellungen bestellung = findBestellungById(Long.valueOf(i));
+			final Bestellung bestellung = findBestellungById(Long.valueOf(i));
 			bestellung.setKunde(kunde);
 			bestellungen.add(bestellung);			
 		}
@@ -109,14 +109,14 @@ public final class Mock {
 		return bestellungen;
 	}
 
-	public static Bestellungen findBestellungById(Long id) {
+	public static Bestellung findBestellungById(Long id) {
 		if (id > MAX_ID) {
 			return null;
 		}
 
 		final AbstractKunde kunde = findKundeById(id + 1);  // andere ID fuer den Kunden
 
-		final Bestellungen bestellung = new Bestellungen();
+		final Bestellung bestellung = new Bestellung();
 		bestellung.setId(id);
 		bestellung.setAusgeliefert(false);
 		bestellung.setKunde(kunde);
@@ -128,7 +128,7 @@ public final class Mock {
 		// Neue IDs fuer Kunde und zugehoerige Adresse
 		// Ein neuer Kunde hat auch keine Bestellungen
 		final String nachname = kunde.getNachname();
-		kunde.setKunden_id(Long.valueOf(nachname.length()));
+		kunde.setKundenId(Long.valueOf(nachname.length()));
 		final Adresse adresse = kunde.getAdresse();
 		adresse.setaId((Long.valueOf(nachname.length())) + 1);
 		adresse.setKunde(kunde);
