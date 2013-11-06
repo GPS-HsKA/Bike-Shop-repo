@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import de.shop.artikelverwaltung.domain.Artikel;
 import de.shop.bestellverwaltung.domain.Bestellung;
 import de.shop.kundenverwaltung.domain.AbstractKunde;
 import de.shop.kundenverwaltung.domain.Adresse;
@@ -122,4 +123,27 @@ public final class Mock {
 	}
 
 	private Mock() { /**/ }
+
+	public static Artikel findArtikelbyId(Long id) {
+		// TODO Auto-generated method stub
+		
+		final Artikel zub = new Artikel();
+		zub.setBezeichnung("Sau gutes Produkt");
+		zub.setBeschreibung("Dieses Produkt ist einfach nur geil!!!");
+		zub.setPreis(0.99);
+		zub.setId(id);
+		zub.setVerfuegbar(true);
+		zub.setZubehoer(null);
+		
+		final Artikel art = new Artikel();
+		art.setId(id);
+		art.setBezeichnung("Sau gutes Produkt");
+		art.setBeschreibung("Dieses Produkt ist einfach nur geil!!!");
+		art.setPreis(0.99);
+		art.setVerfuegbar(true);
+		art.setZubehoer(zub);
+		
+		return art;
+		
+	}
 }
