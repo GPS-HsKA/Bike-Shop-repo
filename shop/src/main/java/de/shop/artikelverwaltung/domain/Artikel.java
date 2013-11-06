@@ -51,6 +51,7 @@ public class Artikel implements Serializable {
 	}
 	public int getArtikelnummer() {
 		return artikelnummer;
+		
 	}
 	public void setArtikelnummer(int artikelnummer) {
 		this.artikelnummer = artikelnummer;
