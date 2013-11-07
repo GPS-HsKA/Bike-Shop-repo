@@ -2,16 +2,20 @@ package de.shop.bestellverwaltung.domain;
 
 import java.io.Serializable;
 import java.net.URI;
+import java.util.Collections;
+import java.util.List;
 
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 import de.shop.kundenverwaltung.domain.AbstractKunde;
 
+/**
+ * @author <a href="mailto:Juergen.Zimmermann@HS-Karlsruhe.de">J&uuml;rgen Zimmermann</a>
+ */
 @XmlRootElement
-public class Bestellung implements Serializable{
-
-	private static final long serialVersionUID = -60930025346804068L;
+public class Bestellung implements Serializable {
+	private static final long serialVersionUID = 1618359234119003714L;
 	
 	private Long id;
 	private boolean ausgeliefert;
@@ -20,39 +24,51 @@ public class Bestellung implements Serializable{
 	private AbstractKunde kunde;
 	
 	private URI kundeUri;
-
+	
+	private List<Bestellposition> bestellpositionen;
+	
 	public Long getId() {
 		return id;
 	}
-
 	public void setId(Long id) {
 		this.id = id;
 	}
-
 	public boolean isAusgeliefert() {
 		return ausgeliefert;
 	}
-
 	public void setAusgeliefert(boolean ausgeliefert) {
 		this.ausgeliefert = ausgeliefert;
 	}
-
 	public AbstractKunde getKunde() {
 		return kunde;
 	}
-
 	public void setKunde(AbstractKunde kunde) {
 		this.kunde = kunde;
 	}
-
+	
 	public URI getKundeUri() {
 		return kundeUri;
 	}
-
 	public void setKundeUri(URI kundeUri) {
 		this.kundeUri = kundeUri;
 	}
-
+	
+	public List<Bestellposition> getBestellpositionen() {
+		if (bestellpositionen == null) {
+			return null;
+		}
+		return Collections.unmodifiableList(bestellpositionen);
+	}
+	public void setBestellpositionen(List<Bestellposition> bestellpositionen) {
+		if (this.bestellpositionen == null) {
+			this.bestellpositionen = bestellpositionen;
+			return;
+		}
+		this.bestellpositionen.clear();
+		if (bestellpositionen != null) {
+			this.bestellpositionen.addAll(bestellpositionen);
+		}
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -60,7 +76,6 @@ public class Bestellung implements Serializable{
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
 	}
-
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -69,20 +84,18 @@ public class Bestellung implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Bestellung other = (Bestellung) obj;
+		final Bestellung other = (Bestellung) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
-		} else if (!id.equals(other.id))
+		}
+		else if (!id.equals(other.id))
 			return false;
 		return true;
 	}
-
+	
 	@Override
 	public String toString() {
-		return "Bestellungen [id=" + id + ", ausgeliefert=" + ausgeliefert
-				+ ", kundeUri=" + kundeUri + "]";
+		return "Bestellung [id=" + id + ", ausgeliefert=" + ausgeliefert + ", kundeUri=" + kundeUri + "]";
 	}
-	
-	
 }

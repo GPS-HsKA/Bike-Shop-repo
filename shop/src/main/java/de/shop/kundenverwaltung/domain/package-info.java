@@ -5,10 +5,7 @@ package de.shop.kundenverwaltung.domain;
 import static javax.xml.bind.annotation.XmlAccessType.FIELD;
 
 import javax.xml.bind.annotation.XmlAccessorType;
+
 /**
- * 
- */
-/**
- * @author J_D
- *
+ * @author <a href="mailto:Juergen.Zimmermann@HS-Karlsruhe.de">J&uuml;rgen Zimmermann</a>
  */

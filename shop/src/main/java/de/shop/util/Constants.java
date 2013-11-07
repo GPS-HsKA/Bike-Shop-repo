@@ -11,5 +11,7 @@ public final class Constants {
 	public static final String FIRST_LINK = "first";
 	public static final String LAST_LINK = "last";
 
+	public static final Long KEINE_ID = null;
+	
 	private Constants() {}
 }

@@ -17,6 +17,7 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
+import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -77,7 +78,6 @@ public class KundeResource {
 		return Response.ok(kunde)
                        .links(getTransitionalLinks(kunde, uriInfo))
                        .build();
-
 	}
 	
 	public void setStructuralLinks(AbstractKunde kunde, UriInfo uriInfo) {
@@ -87,7 +87,7 @@ public class KundeResource {
 	}
 	
 	private URI getUriBestellungen(AbstractKunde kunde, UriInfo uriInfo) {
-		return uriHelper.getUri(KundeResource.class, "findBestellungenByKundeId", kunde.getKundenId(), uriInfo);
+		return uriHelper.getUri(KundeResource.class, "findBestellungenByKundeId", kunde.getId(), uriInfo);
 	}		
 	
 	public Link[] getTransitionalLinks(AbstractKunde kunde, UriInfo uriInfo) {
@@ -103,7 +103,7 @@ public class KundeResource {
                                 .rel(UPDATE_LINK)
                                 .build();
 
-		final Link remove = Link.fromUri(uriHelper.getUri(KundeResource.class, "deleteKunde", kunde.getKundenId(), uriInfo))
+		final Link remove = Link.fromUri(uriHelper.getUri(KundeResource.class, "deleteKunde", kunde.getId(), uriInfo))
                                 .rel(REMOVE_LINK)
                                 .build();
 		
@@ -112,7 +112,7 @@ public class KundeResource {
 
 	
 	public URI getUriKunde(AbstractKunde kunde, UriInfo uriInfo) {
-		return uriHelper.getUri(KundeResource.class, "findKundeById", kunde.getKundenId(), uriInfo);
+		return uriHelper.getUri(KundeResource.class, "findKundeById", kunde.getId(), uriInfo);
 	}
 
 	
@@ -125,7 +125,6 @@ public class KundeResource {
 			if (kunden.isEmpty()) {
 				throw new NotFoundException("Kein Kunde mit Nachname " + nachname + " gefunden.");
 			}
-
 		}
 		else {
 			// TODO Anwendungskern statt Mock, Verwendung von Locale
@@ -163,7 +162,7 @@ public class KundeResource {
 	@GET
 	@Path("{id:[1-9][0-9]*}/bestellungen")
 	public Response findBestellungenByKundeId(@PathParam("id") Long kundeId) {
-		// TODO Anwendungskern statt Mock, Verwendung von Locale (return null)
+		// TODO Anwendungskern statt Mock, Verwendung von Locale
 		final AbstractKunde kunde = Mock.findKundeById(kundeId);
 		final List<Bestellung> bestellungen = Mock.findBestellungenByKunde(kunde);
 		if (bestellungen.isEmpty()) {
@@ -205,7 +204,7 @@ public class KundeResource {
 	@Consumes({APPLICATION_JSON, APPLICATION_XML, TEXT_XML })
 	@Produces
 	public Response createKunde(AbstractKunde kunde) {
-		// TODO Anwendungskern statt Mock, Verwendung von Locale (return null)
+		// TODO Anwendungskern statt Mock, Verwendung von Locale
 		kunde = Mock.createKunde(kunde);
 		return Response.created(getUriKunde(kunde, uriInfo))
 			           .build();

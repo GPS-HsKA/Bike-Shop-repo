@@ -6,12 +6,13 @@ import java.util.List;
 import java.util.Set;
 
 import de.shop.artikelverwaltung.domain.Artikel;
+import de.shop.bestellverwaltung.domain.Bestellposition;
 import de.shop.bestellverwaltung.domain.Bestellung;
 import de.shop.kundenverwaltung.domain.AbstractKunde;
 import de.shop.kundenverwaltung.domain.Adresse;
 import de.shop.kundenverwaltung.domain.Firmenkunde;
+import de.shop.kundenverwaltung.domain.HobbyType;
 import de.shop.kundenverwaltung.domain.Privatkunde;
-
 
 /**
  * Emulation des Anwendungskerns
@@ -21,42 +22,18 @@ public final class Mock {
 	private static final int MAX_KUNDEN = 8;
 	private static final int MAX_BESTELLUNGEN = 4;
 
-	// Eigener Code
-	
-	public static Artikel listArticle(Integer id){
-		
-		if (id > MAX_ID){
-			return null;
-		}
-		
-		 
-		
-		final Artikel tart = new Artikel();
-		tart.setArtikelnummer(id.intValue());
-		tart.setBeschreibeung("Testbeschreibung ab sdfsdf sdaf fg!!");
-		tart.setName("Test");
-		tart.setPreis(0.99);
-				
-		return tart;
-		
-	}
-	
-//	 TODO Kunde Test-Methoden anlegen 
-//	 TODO Bestellung Test-Methoden anlegen 
-	
-	
 	public static AbstractKunde findKundeById(Long id) {
 		if (id > MAX_ID) {
 			return null;
 		}
 		
 		final AbstractKunde kunde = id % 2 == 1 ? new Privatkunde() : new Firmenkunde();
-		kunde.setKundenId(id);
+		kunde.setId(id);
 		kunde.setNachname("Nachname" + id);
 		kunde.setEmail("" + id + "@hska.de");
 		
 		final Adresse adresse = new Adresse();
-		adresse.setaId(id + 1);        // andere ID fuer die Adresse
+		adresse.setId(id + 1);        // andere ID fuer die Adresse
 		adresse.setPlz("12345");
 		adresse.setOrt("Testort");
 		adresse.setKunde(kunde);
@@ -64,10 +41,10 @@ public final class Mock {
 		
 		if (kunde.getClass().equals(Privatkunde.class)) {
 			final Privatkunde privatkunde = (Privatkunde) kunde;
-//			final Set<HobbyType> hobbies = new HashSet<>();
-//			hobbies.add(HobbyType.LESEN);
-//			hobbies.add(HobbyType.REISEN);
-//			privatkunde.setHobbies(hobbies);
+			final Set<HobbyType> hobbies = new HashSet<>();
+			hobbies.add(HobbyType.LESEN);
+			hobbies.add(HobbyType.REISEN);
+			privatkunde.setHobbies(hobbies);
 		}
 		
 		return kunde;
@@ -97,7 +74,7 @@ public final class Mock {
 
 	public static List<Bestellung> findBestellungenByKunde(AbstractKunde kunde) {
 		// Beziehungsgeflecht zwischen Kunde und Bestellungen aufbauen
-		final int anzahl = kunde.getKundenId().intValue() % MAX_BESTELLUNGEN + 1;  // 1, 2, 3 oder 4 Bestellungen
+		final int anzahl = kunde.getId().intValue() % MAX_BESTELLUNGEN + 1;  // 1, 2, 3 oder 4 Bestellungen
 		final List<Bestellung> bestellungen = new ArrayList<>(anzahl);
 		for (int i = 1; i <= anzahl; i++) {
 			final Bestellung bestellung = findBestellungById(Long.valueOf(i));
@@ -120,6 +97,8 @@ public final class Mock {
 		bestellung.setId(id);
 		bestellung.setAusgeliefert(false);
 		bestellung.setKunde(kunde);
+		// TODO Positionen anlegen
+//		bestellung.setBestellpositionen(createBestellpositionen(bestellung));		
 		
 		return bestellung;
 	}
@@ -128,15 +107,34 @@ public final class Mock {
 		// Neue IDs fuer Kunde und zugehoerige Adresse
 		// Ein neuer Kunde hat auch keine Bestellungen
 		final String nachname = kunde.getNachname();
-		kunde.setKundenId(Long.valueOf(nachname.length()));
+		kunde.setId(Long.valueOf(nachname.length()));
 		final Adresse adresse = kunde.getAdresse();
-		adresse.setaId((Long.valueOf(nachname.length())) + 1);
+		adresse.setId((Long.valueOf(nachname.length())) + 1);
 		adresse.setKunde(kunde);
 		kunde.setBestellungen(null);
 		
 		System.out.println("Neuer Kunde: " + kunde);
 		return kunde;
 	}
+
+	//TODO Positionen erzeugen
+//	public static List<Bestellposition> createBestellpositionen(Bestellung bestellung)
+//	{
+//		short anzahl = 3;
+//		long id = 1;
+//		final Artikel art = new Artikel();
+//		art.setId(id);
+//		art.setBezeichnung("Sau gutes Produkt");
+//		art.setBeschreibung("Dieses Produkt ist einfach nur geil!!!");
+//		art.setPreis(0.99);
+//		art.setVerfuegbar(true);
+//		final Bestellposition bestellpositionen = new Bestellposition(art,anzahl);
+//		final List<Bestellposition> bestellpositionenliste = new ArrayList<Bestellposition>();
+//		bestellpositionenliste.add(bestellpositionen);
+//		
+//		return bestellpositionenliste;
+//	}
+		
 
 	public static void updateKunde(AbstractKunde kunde) {
 		System.out.println("Aktualisierter Kunde: " + kunde);
@@ -147,4 +145,47 @@ public final class Mock {
 	}
 
 	private Mock() { /**/ }
+
+	public static Artikel findArtikelbyId(Long id) {
+		// TODO Auto-generated method stub
+		
+		final Artikel zub = new Artikel();
+		zub.setBezeichnung("Sau gutes Produkt");
+		zub.setBeschreibung("Dieses Produkt ist einfach nur geil!!!");
+		zub.setPreis(0.99);
+		zub.setId(id);
+		zub.setVerfuegbar(true);
+		
+		final Artikel art = new Artikel();
+		art.setId(id);
+		art.setBezeichnung("Sau gutes Produkt");
+		art.setBeschreibung("Dieses Produkt ist einfach nur geil!!!");
+		art.setPreis(0.99);
+		art.setVerfuegbar(true);
+		
+		return art;
+		
+	}
+	
+	public static Artikel createArtikel(Artikel artikel) {
+		// Neue IDs fuer Artikel
+		final String bezeichnung = artikel.getBezeichnung();
+		artikel.setId(Long.valueOf(bezeichnung.length()));
+		
+		System.out.println("Neuer Artikel: " + artikel);
+		return artikel;
+	}
+	
+	public static Bestellung createBestellung(Bestellung bestellung) {
+		// Neue IDs fuer Artikel
+		final String nachname = bestellung.getKundeUri().toString();
+		bestellung.setId(Long.valueOf(nachname.length()));
+		
+		System.out.println("Neue Bestellung: " + bestellung);
+		return bestellung;
+	}
+	
+	public static void updateArtikel(Artikel artikel) {
+		System.out.println("Aktualisierter Kunde: " + artikel);
+	}
 }

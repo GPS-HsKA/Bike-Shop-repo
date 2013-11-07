@@ -6,45 +6,44 @@ import java.util.List;
 
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
+import javax.xml.bind.annotation.XmlTransient;
 
 import org.codehaus.jackson.annotate.JsonSubTypes;
+import org.codehaus.jackson.annotate.JsonSubTypes.Type;
 import org.codehaus.jackson.annotate.JsonTypeInfo;
 
 import de.shop.bestellverwaltung.domain.Bestellung;
 
+/**
+ * @author <a href="mailto:Juergen.Zimmermann@HS-Karlsruhe.de">J&uuml;rgen Zimmermann</a>
+ */
 @XmlRootElement
 @XmlSeeAlso({ Firmenkunde.class, Privatkunde.class })
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
-/*@JsonSubTypes({
-@Type(value = Privatkunde.class, name = AbstractKunde.PRIVATKUNDE),
-@Type(value = Firmenkunde.class, name = AbstractKunde.FIRMENKUNDE) })*/
-public abstract class AbstractKunde implements Serializable
-
-{
-	/**
-	 * 
-	 */
+@JsonSubTypes({
+	@Type(value = Privatkunde.class, name = AbstractKunde.PRIVATKUNDE),
+	@Type(value = Firmenkunde.class, name = AbstractKunde.FIRMENKUNDE) })
+public abstract class AbstractKunde implements Serializable {
+	private static final long serialVersionUID = 7401524595142572933L;
 	
 	public static final String PRIVATKUNDE = "P";
 	public static final String FIRMENKUNDE = "F";
 	
-	private static final long serialVersionUID = -89734504223897613L;
-	private Long kundenId;
+	private Long id;
 	private String nachname;
 	private String email;
 	private Adresse adresse;
 	
-	private List<Bestellung> Bestellliste;
+	@XmlTransient
+	private List<Bestellung> bestellungen;
 	
-	private URI bestellungsUri;
-	
-	// Getter und Setter für Attribute
-	
-	public Long getKundenId() {
-		return kundenId;
+	private URI bestellungenUri;
+
+	public Long getId() {
+		return id;
 	}
-	public void setKundenId(Long kundenId) {
-		this.kundenId = kundenId;
+	public void setId(Long id) {
+		this.id = id;
 	}
 	public String getNachname() {
 		return nachname;
@@ -64,29 +63,19 @@ public abstract class AbstractKunde implements Serializable
 	public void setAdresse(Adresse adresse) {
 		this.adresse = adresse;
 	}
-	public URI getBestellungsUri() {
-		return bestellungsUri;
-	}
-	public void setBestellungsUri(URI bestellungsUri) {
-		this.bestellungsUri = bestellungsUri;
-	}
 	public List<Bestellung> getBestellungen() {
-		return Bestellliste;
+		return bestellungen;
 	}
 	public void setBestellungen(List<Bestellung> bestellungen) {
-		this.Bestellliste = bestellungen;
+		this.bestellungen = bestellungen;
 	}
 
-	public URI getBestellungenUri() 
-	{
-		return bestellungsUri;
+	public URI getBestellungenUri() {
+		return bestellungenUri;
 	}
-	public void setBestellungenUri(URI bestellungenUri) 
-	{
-		this.bestellungsUri = bestellungenUri;
-	
+	public void setBestellungenUri(URI bestellungenUri) {
+		this.bestellungenUri = bestellungenUri;
 	}
-	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -94,6 +83,7 @@ public abstract class AbstractKunde implements Serializable
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		return result;
 	}
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -114,7 +104,7 @@ public abstract class AbstractKunde implements Serializable
 	
 	@Override
 	public String toString() {
-		return "AbstractKunde [id=" + kundenId + ", nachname=" + nachname + ", email=" + email
-			   + ", bestellungenUri=" + bestellungsUri + "]";
+		return "AbstractKunde [id=" + id + ", nachname=" + nachname + ", email=" + email
+			   + ", bestellungenUri=" + bestellungenUri + "]";
 	}
 }
