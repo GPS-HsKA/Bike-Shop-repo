@@ -10,7 +10,7 @@ import javax.xml.bind.annotation.XmlTransient;
 import de.shop.artikelverwaltung.domain.Artikel;
 
 
-public class Bestellposition implements Serializable{
+public class Bestellposition implements Serializable {
 	private static final long serialVersionUID = 892583057771741519L;
 	
 	private Long id = KEINE_ID;
@@ -100,12 +100,14 @@ public class Bestellposition implements Serializable{
 		if (artikel == null) {
 			if (other.artikel != null)
 				return false;
-		} else if (!artikel.equals(other.artikel))
+		}
+		else if (!artikel.equals(other.artikel))
 			return false;
 		if (id == null) {
 			if (other.id != null)
 				return false;
-		} else if (!id.equals(other.id))
+		}
+		else if (!id.equals(other.id))
 			return false;
 		return true;
 	}

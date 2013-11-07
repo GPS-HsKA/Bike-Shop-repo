@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Set;
 
 import de.shop.artikelverwaltung.domain.Artikel;
-import de.shop.bestellverwaltung.domain.Bestellposition;
 import de.shop.bestellverwaltung.domain.Bestellung;
 import de.shop.kundenverwaltung.domain.AbstractKunde;
 import de.shop.kundenverwaltung.domain.Adresse;
@@ -148,6 +147,7 @@ public final class Mock {
 
 	public static Artikel findArtikelbyId(Long id) {
 		// TODO Auto-generated method stub
+		// 0.99 als Konstante angeben!
 		
 		final Artikel zub = new Artikel();
 		zub.setBezeichnung("Sau gutes Produkt");

@@ -17,7 +17,6 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
-import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -35,8 +34,8 @@ import de.shop.bestellverwaltung.domain.Bestellung;
 import de.shop.bestellverwaltung.rest.BestellungResource;
 import de.shop.kundenverwaltung.domain.AbstractKunde;
 import de.shop.util.Mock;
-import de.shop.util.rest.UriHelper;
 import de.shop.util.rest.NotFoundException;
+import de.shop.util.rest.UriHelper;
 
 /**
  * @author <a href="mailto:Juergen.Zimmermann@HS-Karlsruhe.de">J&uuml;rgen Zimmermann</a>
@@ -107,7 +106,7 @@ public class KundeResource {
                                 .rel(REMOVE_LINK)
                                 .build();
 		
-		return new Link[] { self, add, update, remove };
+		return new Link[] {self, add, update, remove};
 	}
 
 	
@@ -138,7 +137,7 @@ public class KundeResource {
 			setStructuralLinks(k, uriInfo);
 		}
 		
-		return Response.ok(new GenericEntity<List<? extends AbstractKunde>>(kunden){})
+		return Response.ok(new GenericEntity<List<? extends AbstractKunde>>(kunden) { })
                        .links(getTransitionalLinksKunden(kunden, uriInfo))
                        .build();
 	}
@@ -156,7 +155,7 @@ public class KundeResource {
                               .rel(LAST_LINK)
                               .build();
 		
-		return new Link[] { first, last };
+		return new Link[] {first, last};
 	}
 	
 	@GET
@@ -174,12 +173,13 @@ public class KundeResource {
 			bestellungResource.setStructuralLinks(bestellung, uriInfo);
 		}
 		
-		return Response.ok(new GenericEntity<List<Bestellung>>(bestellungen){})
+		return Response.ok(new GenericEntity<List<Bestellung>>(bestellungen) { })
                        .links(getTransitionalLinksBestellungen(bestellungen, kunde, uriInfo))
                        .build();
 	}
 	
-	private Link[] getTransitionalLinksBestellungen(List<Bestellung> bestellungen, AbstractKunde kunde, UriInfo uriInfo) {
+	private Link[] getTransitionalLinksBestellungen(List<Bestellung> bestellungen,
+			AbstractKunde kunde, UriInfo uriInfo) {
 		if (bestellungen == null || bestellungen.isEmpty()) {
 			return new Link[0];
 		}
@@ -197,7 +197,7 @@ public class KundeResource {
                               .rel(LAST_LINK)
                               .build();
 		
-		return new Link[] { self, first, last };
+		return new Link[] {self, first, last};
 	}
 	
 	@POST

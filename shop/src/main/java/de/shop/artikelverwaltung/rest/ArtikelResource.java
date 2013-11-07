@@ -86,7 +86,7 @@ public class ArtikelResource {
 		final Link self = Link.fromUri(getUriZubehoer(artikel, uriInfo))
                               .rel(SELF_LINK)
                               .build();
-		return new Link[] { self };
+		return new Link[] {self};
 	}
 	
 	public URI getUriZubehoer(Artikel bestellung, UriInfo uriInfo) {

@@ -13,5 +13,5 @@ public final class Constants {
 
 	public static final Long KEINE_ID = null;
 	
-	private Constants() {}
+	private Constants() { }
 }
