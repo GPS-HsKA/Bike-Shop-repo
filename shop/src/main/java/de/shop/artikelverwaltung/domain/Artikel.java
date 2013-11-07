@@ -76,7 +76,7 @@ public class Artikel implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Artikel other = (Artikel) obj;
+		Artikel other = (Artikel) obj; //TODO other als final deklarieren
 		if (beschreibung == null) {
 			if (other.beschreibung != null)
 				return false;

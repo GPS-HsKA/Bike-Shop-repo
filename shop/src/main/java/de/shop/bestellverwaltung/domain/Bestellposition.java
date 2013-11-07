@@ -94,7 +94,7 @@ public class Bestellposition implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Bestellposition other = (Bestellposition) obj;
+		Bestellposition other = (Bestellposition) obj; //TODO other als final deklarieren
 		if (anzahl != other.anzahl)
 			return false;
 		if (artikel == null) {

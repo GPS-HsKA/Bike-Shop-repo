@@ -92,7 +92,7 @@ public abstract class AbstractKunde implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		AbstractKunde other = (AbstractKunde) obj;
+		AbstractKunde other = (AbstractKunde) obj; //TODO other als final deklarieren
 		if (email == null) {
 			if (other.email != null)
 				return false;
