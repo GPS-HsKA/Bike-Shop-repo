@@ -26,7 +26,6 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
 import de.shop.artikelverwaltung.domain.Artikel;
-import de.shop.kundenverwaltung.domain.AbstractKunde;
 import de.shop.util.Mock;
 import de.shop.util.rest.NotFoundException;
 import de.shop.util.rest.UriHelper;

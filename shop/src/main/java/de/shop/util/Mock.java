@@ -163,7 +163,7 @@ public final class Mock {
 		
 		final Artikel art = new Artikel();
 		art.setId(id);
-		art.setBezeichnung("Bezeichnung"+id);
+		art.setBezeichnung("Bezeichnung" + id);
 		art.setBeschreibung("Dieses Produkt ist einfach nur geil!!!");
 		art.setPreis(testwert);
 		art.setVerfuegbar(true);
