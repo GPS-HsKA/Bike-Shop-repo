@@ -1,11 +1,14 @@
 package de.shop.artikelverwaltung.rest;
 
+import static de.shop.util.Constants.FIRST_LINK;
+import static de.shop.util.Constants.LAST_LINK;
 import static de.shop.util.Constants.SELF_LINK;
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 import static javax.ws.rs.core.MediaType.APPLICATION_XML;
 import static javax.ws.rs.core.MediaType.TEXT_XML;
 
 import java.net.URI;
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
@@ -15,12 +18,15 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
+import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.Link;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
 import de.shop.artikelverwaltung.domain.Artikel;
+import de.shop.kundenverwaltung.domain.AbstractKunde;
 import de.shop.util.Mock;
 import de.shop.util.rest.NotFoundException;
 import de.shop.util.rest.UriHelper;
@@ -29,6 +35,7 @@ import de.shop.util.rest.UriHelper;
 @Produces({ APPLICATION_JSON, APPLICATION_XML + ";qs=0.75", TEXT_XML + ";qs=0.5" })
 @Consumes
 public class ArtikelResource {
+	public static final String ARTIKEL_BEZEICHNUNG_QUERY_PARAM = "Bezeichnung";
 	
 	@Context
 	private UriInfo uriInfo;
@@ -74,9 +81,50 @@ public class ArtikelResource {
 	}
 	
 	public void setStructuralLinks(Artikel artikel, UriInfo uriInfo) {
-		// URI fuer Zubehoer setzen
 		
+	}
+	
+	@GET
+	public Response findArtikelByBezeichnung(@QueryParam(ARTIKEL_BEZEICHNUNG_QUERY_PARAM) String bezeichnung) {
+		List<? extends Artikel> artikels = null;
+		if (bezeichnung != null) {
+			// TODO Anwendungskern statt Mock, Verwendung von Locale
+			artikels = Mock.findArtikelByBezeichnung(bezeichnung);
+			if (artikels.isEmpty()) {
+				throw new NotFoundException("Kein Artikel mit Bezeichnung " + bezeichnung + " gefunden.");
+			}
+		}
+		else {
+			// TODO Anwendungskern statt Mock, Verwendung von Locale
+			artikels = Mock.findAllArtikels();
+			if (artikels.isEmpty()) {
+				throw new NotFoundException("Keine Artikel vorhanden.");
+			}
+		}
 		
+		for (Artikel a : artikels) {
+			setStructuralLinks(a, uriInfo);
+		}
+		
+		return Response.ok(new GenericEntity<List<? extends Artikel>>(artikels) { })
+                       .links(getTransitionalLinksArtikels(artikels, uriInfo))
+                       .build();
+	}
+	
+	private Link[] getTransitionalLinksArtikels(List<? extends Artikel> artikels, UriInfo uriInfo) {
+		if (artikels == null || artikels.isEmpty()) {
+			return null;
+		}
+		
+		final Link first = Link.fromUri(getUriArtikel(artikels.get(0), uriInfo))
+	                           .rel(FIRST_LINK)
+	                           .build();
+		final int lastPos = artikels.size() - 1;
+		final Link last = Link.fromUri(getUriArtikel(artikels.get(lastPos), uriInfo))
+                              .rel(LAST_LINK)
+                              .build();
+		
+		return new Link[] {first, last};
 	}
 	
 	private Link[] getTransitionalLinks(Artikel artikel, UriInfo uriInfo) {

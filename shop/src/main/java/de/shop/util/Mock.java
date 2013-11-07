@@ -163,13 +163,23 @@ public final class Mock {
 		
 		final Artikel art = new Artikel();
 		art.setId(id);
-		art.setBezeichnung("Sau gutes Produkt");
+		art.setBezeichnung("Bezeichnung"+id);
 		art.setBeschreibung("Dieses Produkt ist einfach nur geil!!!");
 		art.setPreis(testwert);
 		art.setVerfuegbar(true);
 		
 		return art;
 		
+	}
+	
+	public static List<Artikel> findAllArtikels() {
+		final int anzahl = MAX_KUNDEN;
+		final List<Artikel> artikels = new ArrayList<>(anzahl);
+		for (int i = 1; i <= anzahl; i++) {
+			final Artikel artikel = findArtikelbyId(Long.valueOf(i));
+			artikels.add(artikel);			
+		}
+		return artikels;
 	}
 	
 	public static Artikel createArtikel(Artikel artikel) {
@@ -179,6 +189,17 @@ public final class Mock {
 		
 		System.out.println("Neuer Artikel: " + artikel);
 		return artikel;
+	}
+	
+	public static List<Artikel> findArtikelByBezeichnung(String bezeichnung) {
+		final int anzahl = bezeichnung.length();
+		final List<Artikel> artikels = new ArrayList<>(anzahl);
+		for (int i = 1; i <= anzahl; i++) {
+			final Artikel artikel = findArtikelbyId(Long.valueOf(i));
+			artikel.setBezeichnung(bezeichnung);
+			artikels.add(artikel);			
+		}
+		return artikels;
 	}
 	
 	public static Bestellung createBestellung(Bestellung bestellung) {
