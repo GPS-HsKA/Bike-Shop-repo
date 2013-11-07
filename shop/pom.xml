@@ -74,20 +74,66 @@
 	
 	<developers>
 		<developer>
-			<id>Juergen.Zimmermann</id>
-			<name>J&#252;rgen Zimmermann</name>
-			<email>Juergen.Zimmermann@HS-Karlsruhe.de</email>
+			<id>Jan.Dobler</id>
+			<name>Jan Dobler</name>
+			<email>Jan.Dobler@gmx.de</email>
 			<url>http://www.iwi.hs-karlsruhe.de</url>
 			<organization>Hochschule Karlsruhe</organization>
 			<organizationUrl>http://www.iwi.hs-karlsruhe.de</organizationUrl>
 			<roles>
-				<role>Dozent</role>
+				<role>Student</role>
 			</roles>
 			<timezone>+1</timezone>     <!-- relativ zu GMT -->
 			<properties>
-				<!--
-				<picUrl>http://my.host.com/my/pic.gif</picUrl>
-				-->
+				
+			</properties>
+		</developer>
+		
+		<developer>
+			<id>Alexander.Schackmann</id>
+			<name>Alexander Schackman</name>
+			<email>Alexander.Schackman@googlemail.com</email>
+			<url>http://www.iwi.hs-karlsruhe.de</url>
+			<organization>Hochschule Karlsruhe</organization>
+			<organizationUrl>http://www.iwi.hs-karlsruhe.de</organizationUrl>
+			<roles>
+				<role>Student</role>
+			</roles>
+			<timezone>+1</timezone>     <!-- relativ zu GMT -->
+			<properties>
+				
+			</properties>
+		</developer>
+		
+		<developer>
+			<id>Hans-Martin.Hoertling</id>
+			<name>Hans-Marting Hoertling</name>
+			<email>hm.hoertling@gmail.com</email>
+			<url>http://www.iwi.hs-karlsruhe.de</url>
+			<organization>Hochschule Karlsruhe</organization>
+			<organizationUrl>http://www.iwi.hs-karlsruhe.de</organizationUrl>
+			<roles>
+				<role>Student</role>
+			</roles>
+			<timezone>+1</timezone>     <!-- relativ zu GMT -->
+			<properties>
+				
+			</properties>
+		</developer>
+		
+		<developer>
+			<id>Goetz.Philipp.Schmidt</id>
+			<name>Goetz Philipp Schmidt</name>
+			<email>schmidt.goetz@gmail.com</email>
+			<url>http://www.iwi.hs-karlsruhe.de</url>
+			<organization>Hochschule Karlsruhe</organization>
+			<organizationUrl>http://www.iwi.hs-karlsruhe.de</organizationUrl>
+			<roles>
+				<role>Student</role>
+			</roles>
+			<timezone>+1</timezone>     <!-- relativ zu GMT -->
+			<properties>
+				
 			</properties>
 		</developer>
 	</developers>
