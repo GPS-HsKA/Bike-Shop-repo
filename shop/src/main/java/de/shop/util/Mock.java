@@ -1,16 +1,16 @@
 package de.shop.util;
 
 import java.util.ArrayList;
-import java.util.HashSet;
+//import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
+//import java.util.Set;
 
 import de.shop.artikelverwaltung.domain.Artikel;
 import de.shop.bestellverwaltung.domain.Bestellung;
 import de.shop.kundenverwaltung.domain.AbstractKunde;
 import de.shop.kundenverwaltung.domain.Adresse;
 import de.shop.kundenverwaltung.domain.Firmenkunde;
-import de.shop.kundenverwaltung.domain.HobbyType;
+//import de.shop.kundenverwaltung.domain.HobbyType;
 import de.shop.kundenverwaltung.domain.Privatkunde;
 
 /**
@@ -40,11 +40,12 @@ public final class Mock {
 		kunde.setAdresse(adresse);
 		
 		if (kunde.getClass().equals(Privatkunde.class)) {
-			final Privatkunde privatkunde = (Privatkunde) kunde;
-			final Set<HobbyType> hobbies = new HashSet<>();
-			hobbies.add(HobbyType.LESEN);
-			hobbies.add(HobbyType.REISEN);
-			privatkunde.setHobbies(hobbies);
+			//TODO Hobbies
+//			final Privatkunde privatkunde = (Privatkunde) kunde;
+//			final Set<HobbyType> hobbies = new HashSet<>();
+//			hobbies.add(HobbyType.LESEN);
+//			hobbies.add(HobbyType.REISEN);
+//			privatkunde.setHobbies(hobbies);
 		}
 		
 		return kunde;
