@@ -20,11 +20,10 @@ import javax.ws.rs.core.Link;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
-import de.shop.kundenverwaltung.domain.AbstractKunde;
-import de.shop.util.Mock;
-import de.shop.util.rest.UriHelper;
-import de.shop.util.rest.NotFoundException;
 import de.shop.artikelverwaltung.domain.Artikel;
+import de.shop.util.Mock;
+import de.shop.util.rest.NotFoundException;
+import de.shop.util.rest.UriHelper;
 
 @Path("/artikel")
 @Produces({ APPLICATION_JSON, APPLICATION_XML + ";qs=0.75", TEXT_XML + ";qs=0.5" })

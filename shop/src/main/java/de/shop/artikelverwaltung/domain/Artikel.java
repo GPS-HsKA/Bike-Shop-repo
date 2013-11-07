@@ -1,10 +1,8 @@
 package de.shop.artikelverwaltung.domain;
 
 import java.io.Serializable;
-import java.net.URI;
 
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 @XmlRootElement
 public class Artikel implements Serializable {
@@ -82,17 +80,21 @@ public class Artikel implements Serializable {
 		if (beschreibung == null) {
 			if (other.beschreibung != null)
 				return false;
-		} else if (!beschreibung.equals(other.beschreibung))
+		}
+		else if (!beschreibung.equals(other.beschreibung))
 			return false;
-		if (bezeichnung == null) {
+		if (bezeichnung == null)
+		{
 			if (other.bezeichnung != null)
 				return false;
-		} else if (!bezeichnung.equals(other.bezeichnung))
+		}
+		else if (!bezeichnung.equals(other.bezeichnung))
 			return false;
 		if (id == null) {
 			if (other.id != null)
 				return false;
-		} else if (!id.equals(other.id))
+		}
+		else if (!id.equals(other.id))
 			return false;
 		if (Double.doubleToLongBits(preis) != Double
 				.doubleToLongBits(other.preis))
