@@ -36,9 +36,6 @@ public class ArtikelResource {
 	@Inject
 	private UriHelper uriHelper;
 	
-	@Inject
-	private ArtikelResource artikelResource;
-	
 	@GET
 	@Path("{id:[1-9][0-9]*}")
 	public Response findArtikelById(@PathParam("id") Long id) {

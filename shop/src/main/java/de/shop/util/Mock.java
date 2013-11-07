@@ -20,6 +20,7 @@ public final class Mock {
 	private static final int MAX_ID = 99;
 	private static final int MAX_KUNDEN = 8;
 	private static final int MAX_BESTELLUNGEN = 4;
+	
 
 	public static AbstractKunde findKundeById(Long id) {
 		if (id > MAX_ID) {
@@ -146,21 +147,25 @@ public final class Mock {
 	private Mock() { /**/ }
 
 	public static Artikel findArtikelbyId(Long id) {
+		if (id > MAX_ID) {
+			return null;
+		}
 		// TODO Auto-generated method stub
 		// 0.99 als Konstante angeben!
-		
-		final Artikel zub = new Artikel();
-		zub.setBezeichnung("Sau gutes Produkt");
-		zub.setBeschreibung("Dieses Produkt ist einfach nur geil!!!");
-		zub.setPreis(0.99);
-		zub.setId(id);
-		zub.setVerfuegbar(true);
+		final double testwert = 0.99;
+		// FIXME unnötig
+//		final Artikel zub = new Artikel();
+//		zub.setBezeichnung("Sau gutes Produkt");
+//		zub.setBeschreibung("Dieses Produkt ist einfach nur geil!!!");
+//		zub.setPreis(0.99);
+//		zub.setId(id);
+//		zub.setVerfuegbar(true);
 		
 		final Artikel art = new Artikel();
 		art.setId(id);
 		art.setBezeichnung("Sau gutes Produkt");
 		art.setBeschreibung("Dieses Produkt ist einfach nur geil!!!");
-		art.setPreis(0.99);
+		art.setPreis(testwert);
 		art.setVerfuegbar(true);
 		
 		return art;
