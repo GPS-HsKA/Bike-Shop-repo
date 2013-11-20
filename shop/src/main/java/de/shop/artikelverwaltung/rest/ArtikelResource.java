@@ -24,6 +24,8 @@ import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.Link;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
+import javax.validation.Valid;
+import javax.validation.constraints.Size;
 
 import de.shop.artikelverwaltung.domain.Artikel;
 import de.shop.util.Mock;
@@ -65,7 +67,7 @@ public class ArtikelResource {
 	@POST
 	@Consumes({APPLICATION_JSON, APPLICATION_XML, TEXT_XML })
 	@Produces
-	public Response createArtikel(Artikel artikel) {
+	public Response createArtikel(@Valid Artikel artikel) {
 		// TODO Anwendungskern statt Mock, Verwendung von Locale
 		artikel = Mock.createArtikel(artikel);
 		return Response.created(getUriArtikel(artikel, uriInfo))
@@ -75,7 +77,7 @@ public class ArtikelResource {
 	@PUT
 	@Consumes({APPLICATION_JSON, APPLICATION_XML, TEXT_XML })
 	@Produces
-	public void updateArtikel(Artikel artikel) {
+	public void updateArtikel(@Valid Artikel artikel) {
 		// TODO Anwendungskern statt Mock, Verwendung von Locale
 		Mock.updateArtikel(artikel);
 	}
@@ -85,7 +87,10 @@ public class ArtikelResource {
 	}
 	
 	@GET
-	public Response findArtikelByBezeichnung(@QueryParam(ARTIKEL_BEZEICHNUNG_QUERY_PARAM) String bezeichnung) {
+	public Response findArtikelByBezeichnung(@QueryParam(ARTIKEL_BEZEICHNUNG_QUERY_PARAM) 
+		@Size(min = 3, max = 20, message = "{artikel.validation.bezeichnung}")
+		String bezeichnung) {
+		
 		List<? extends Artikel> artikels = null;
 		if (bezeichnung != null) {
 			// TODO Anwendungskern statt Mock, Verwendung von Locale
