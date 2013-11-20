@@ -34,6 +34,7 @@ import de.shop.util.rest.UriHelper;
 @Produces({ APPLICATION_JSON, APPLICATION_XML + ";qs=0.75", TEXT_XML + ";qs=0.5" })
 @Consumes
 public class ArtikelResource {
+	private static final String NOT_FOUND_ID = "artikel.notFound.id";
 	public static final String ARTIKEL_BEZEICHNUNG_QUERY_PARAM = "Bezeichnung";
 	
 	@Context
@@ -48,7 +49,7 @@ public class ArtikelResource {
 		// TODO Anwendungskern statt Mock, Verwendung von Locale
 		final Artikel artikel = Mock.findArtikelbyId(id);
 		if (artikel == null) {
-			throw new NotFoundException("Kein Artikel mit der ID " + id + " gefunden.");
+			throw new NotFoundException(NOT_FOUND_ID, id);
 		}
 		
 		setStructuralLinks(artikel, uriInfo);

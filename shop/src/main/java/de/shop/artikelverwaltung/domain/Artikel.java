@@ -15,7 +15,7 @@ public class Artikel implements Serializable {
 	
 	private Long id;
 	@NotNull
-	@Size(min = 3, max = 20)
+	@Size(min = 3, max = 20, message = "{artikel.validation.bezeichnung}")
 	@Valid
 	private String bezeichnung;
 	@NotNull
