@@ -15,6 +15,8 @@ import java.net.URI;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.validation.Valid;
+import javax.validation.constraints.Pattern;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -46,6 +48,12 @@ import de.shop.util.rest.UriHelper;
 public class KundeResource {
 	public static final String KUNDEN_ID_PATH_PARAM = "kundeId";
 	public static final String KUNDEN_NACHNAME_QUERY_PARAM = "nachname";
+	public static final String KUNDEN_PLZ_QUERY_PARAM = "plz";
+	
+	private static final String NOT_FOUND_ID = "kunde.notFound.id";
+	private static final String NOT_FOUND_NACHNAME = "kunde.notFound.nachname";
+	private static final String NOT_FOUND_ALL = "kunde.notFound.all";
+
 	
 	@Context
 	private UriInfo uriInfo;
@@ -69,7 +77,7 @@ public class KundeResource {
 		// TODO Anwendungskern statt Mock, Verwendung von Locale
 		final AbstractKunde kunde = Mock.findKundeById(id);
 		if (kunde == null) {
-			throw new NotFoundException("Kein Kunde mit der ID " + id + " gefunden.");
+			throw new NotFoundException(NOT_FOUND_ID, id);
 		}
 		
 		setStructuralLinks(kunde, uriInfo);
@@ -116,20 +124,29 @@ public class KundeResource {
 
 	
 	@GET
-	public Response findKundenByNachname(@QueryParam(KUNDEN_NACHNAME_QUERY_PARAM) String nachname) {
+	public Response findKundenByNachname(@QueryParam(KUNDEN_NACHNAME_QUERY_PARAM)
+								       @Pattern(regexp = AbstractKunde.NACHNAME_PATTERN, message = "{kunde.nachname.pattern}")
+									   String nachname,
+									   @QueryParam(KUNDEN_PLZ_QUERY_PARAM)
+								       @Pattern(regexp = "\\d{5}", message = "{adresse.plz}")
+									   String plz) {
 		List<? extends AbstractKunde> kunden = null;
 		if (nachname != null) {
 			// TODO Anwendungskern statt Mock, Verwendung von Locale
 			kunden = Mock.findKundenByNachname(nachname);
 			if (kunden.isEmpty()) {
-				throw new NotFoundException("Kein Kunde mit Nachname " + nachname + " gefunden.");
+				throw new NotFoundException(NOT_FOUND_NACHNAME, nachname);
 			}
+		}
+		else if (plz != null) {
+			// TODO Beispiel fuer ein TODO bei fehlender Implementierung
+			throw new RuntimeException("Suche nach PLZ noch nicht implementiert");
 		}
 		else {
 			// TODO Anwendungskern statt Mock, Verwendung von Locale
 			kunden = Mock.findAllKunden();
 			if (kunden.isEmpty()) {
-				throw new NotFoundException("Keine Kunden vorhanden.");
+				throw new NotFoundException(NOT_FOUND_ALL);
 			}
 		}
 		
@@ -165,7 +182,7 @@ public class KundeResource {
 		final AbstractKunde kunde = Mock.findKundeById(kundeId);
 		final List<Bestellung> bestellungen = Mock.findBestellungenByKunde(kunde);
 		if (bestellungen.isEmpty()) {
-			throw new NotFoundException("Zur ID " + kundeId + " wurden keine Bestellungen gefunden");
+			throw new NotFoundException(NOT_FOUND_ID, kundeId);
 		}
 		
 		// URIs innerhalb der gefundenen Bestellungen anpassen
@@ -203,7 +220,7 @@ public class KundeResource {
 	@POST
 	@Consumes({APPLICATION_JSON, APPLICATION_XML, TEXT_XML })
 	@Produces
-	public Response createKunde(AbstractKunde kunde) {
+	public Response createKunde(@Valid AbstractKunde kunde) {
 		// TODO Anwendungskern statt Mock, Verwendung von Locale
 		kunde = Mock.createKunde(kunde);
 		return Response.created(getUriKunde(kunde, uriInfo))
@@ -213,7 +230,7 @@ public class KundeResource {
 	@PUT
 	@Consumes({APPLICATION_JSON, APPLICATION_XML, TEXT_XML })
 	@Produces
-	public void updateKunde(AbstractKunde kunde) {
+	public void updateKunde(@Valid AbstractKunde kunde) {
 		// TODO Anwendungskern statt Mock, Verwendung von Locale
 		Mock.updateKunde(kunde);
 	}
