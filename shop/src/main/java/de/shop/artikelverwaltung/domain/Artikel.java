@@ -14,13 +14,13 @@ public class Artikel implements Serializable {
 	private static final long serialVersionUID = 456456546L;
 	
 	private Long id;
+	
 	@NotNull
 	@Size(min = 3, max = 20, message = "{artikel.validation.bezeichnung}")
-	@Valid
 	private String bezeichnung;
+	
 	@NotNull
 	@DecimalMin("0.0")
-	@Valid
 	private double preis;
 	private boolean verfuegbar;
 	private String beschreibung;
