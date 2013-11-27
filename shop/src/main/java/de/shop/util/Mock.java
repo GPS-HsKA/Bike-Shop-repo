@@ -1,9 +1,13 @@
 package de.shop.util;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.GregorianCalendar;
 //import java.util.HashSet;
 import java.util.List;
 //import java.util.Set;
+
+
 
 import de.shop.artikelverwaltung.domain.Artikel;
 import de.shop.bestellverwaltung.domain.Bestellung;
@@ -20,6 +24,9 @@ public final class Mock {
 	private static final int MAX_ID = 99;
 	private static final int MAX_KUNDEN = 8;
 	private static final int MAX_BESTELLUNGEN = 4;
+	private static final int JAHR = 2001;
+	private static final int MONAT = 0;
+	private static final int TAG = 31; 
 	
 
 	public static AbstractKunde findKundeById(Long id) {
@@ -214,5 +221,37 @@ public final class Mock {
 	
 	public static void updateArtikel(Artikel artikel) {
 		System.out.println("Aktualisierter Kunde: " + artikel);
+	}
+	
+	public static AbstractKunde findKundeByEmail(String email) {
+		if (email.startsWith("x")) {
+			return null;
+		}
+		
+		final AbstractKunde kunde = email.length() % 2 == 1 ? new Privatkunde() : new Firmenkunde();
+		kunde.setId(Long.valueOf(email.length()));
+		kunde.setNachname("Nachname");
+		kunde.setEmail(email);
+		final GregorianCalendar seitCal = new GregorianCalendar(JAHR, MONAT, TAG);
+		final Date seit = seitCal.getTime();
+		kunde.setSeit(seit);
+		
+		final Adresse adresse = new Adresse();
+		adresse.setId(kunde.getId() + 1);        // andere ID fuer die Adresse
+		adresse.setPlz("12345");
+		adresse.setOrt("Testort");
+		adresse.setKunde(kunde);
+		kunde.setAdresse(adresse);
+		
+		if (kunde.getClass().equals(Privatkunde.class)) {
+			final Privatkunde privatkunde = (Privatkunde) kunde;
+			/* final Set<HobbyType> hobbies = new HashSet<>();
+			hobbies.add(HobbyType.LESEN);
+			hobbies.add(HobbyType.REISEN);
+			privatkunde.setHobbies(hobbies);
+			*/
+		}
+		
+		return kunde;
 	}
 }
