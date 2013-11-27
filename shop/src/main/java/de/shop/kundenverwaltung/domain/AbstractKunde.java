@@ -136,4 +136,10 @@ public abstract class AbstractKunde implements Serializable {
 			return false;
 		return true;
 	}
+	public Date getSeit() {
+		return seit;
+	}
+	public void setSeit(Date seit) {
+		this.seit = seit;
+	}
 }
