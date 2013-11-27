@@ -14,12 +14,10 @@ import org.jboss.logging.Logger;
 
 import de.shop.bestellverwaltung.domain.Bestellung;
 import de.shop.kundenverwaltung.domain.AbstractKunde;
-//import de.shop.util.interceptor.Log;
+import de.shop.util.interceptor.Log;
 import de.shop.util.Mock;
 
-// FIXME nur der Anfang
-
-//@Log
+@Log
 public class BestellungServiceImpl implements BestellungService, Serializable{
 
 	/**
@@ -27,25 +25,43 @@ public class BestellungServiceImpl implements BestellungService, Serializable{
 	 */
 	private static final long serialVersionUID = 2550161482460410931L;
 	
-	//private static final Logger LOGGER = 
+	private static final Logger LOGGER = Logger.getLogger(MethodHandles.lookup().lookupClass());
+	
+	@Inject
+	@NeueBestellung
+	private transient Event<Bestellung> event;
 
+	@PostConstruct
+	private void postConstruct() {
+		LOGGER.debugf("CDI-faehiges Bean %s wurde erzeugt", this);
+	}
+	
+	@PreDestroy
+	private void preDestroy() {
+		LOGGER.debugf("CDI-faehiges Bean %s wird geloescht", this);
+	}
+	
 	@Override
 	public Bestellung findBestellungbyId(Long Id) {
-		// TODO Auto-generated method stub
-		return null;
+		// TODO Datenbanzugriffsschicht statt Mock
+		return Mock.findBestellungById(Id);
 	}
 
 	@Override
 	public List<Bestellung> findBestellungenByKunde(AbstractKunde kunde) {
-		// TODO Auto-generated method stub
-		return null;
+		// TODO Datenbanzugriffsschicht statt Mock
+		return Mock.findBestellungenByKunde(kunde);
 	}
 
 	@Override
 	public Bestellung createBestellung(Bestellung bestellung,
 			AbstractKunde kunde, Locale locale) {
-		// TODO Auto-generated method stub
-		return null;
+		// TODO Datenbanzugriffsschicht statt Mock 
+		// FIXME Mock.createBestellung umschreiben
+		//		bestellung = Mock.createBestellung(bestellung, kunde);
+				event.fire(bestellung);
+				
+				return bestellung;
 	}
 	
 
