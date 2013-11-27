@@ -3,12 +3,16 @@ package de.shop.kundenverwaltung.service;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.enterprise.context.Dependent;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import de.shop.kundenverwaltung.domain.AbstractKunde;
 import de.shop.util.Mock;
+import de.shop.util.interceptor.Log;
 
+@Dependent
+@Log
 public class KundeService implements Serializable {
 	private static final long serialVersionUID = 4360325837484294309L;
 	
@@ -20,14 +24,14 @@ public class KundeService implements Serializable {
 		return Mock.findKundeById(id);
 	
 	}
-//TODO findKundeByEmail schreiben	
-//	@NotNull(message = "{kunde.NotFound.id}")
-//	public AbstractKunde findKundebyEmail(String email) {
-//		if(email == null)
-//			return null;
-//TODO Datenbankzugriff muss noch gemacht werden
-//		return Mock.findKundeByEmail(email);
-//	}
+
+	@NotNull(message = "{kunde.NotFound.id}")
+	public AbstractKunde findKundebyEmail(String email) {
+		if(email == null)
+			return null;
+		//TODO Datenbankzugriff muss noch gemacht werden
+		return Mock.findKundeByEmail(email);
+	}
 	
 	public List<AbstractKunde> findAllKunde(){
 		//TODO Datenbankzugriff muss noch gemacht werden
@@ -44,50 +48,47 @@ public class KundeService implements Serializable {
 		AbstractKunde neuerKunde = findKundeByID(id);
 		if(neuerKunde == null)
 			return;
-		//TODO KundeDeleteBestellungException muss noch geschrieben werden
-//		if(!neuerKunde.getBestellungen().isEmpty()) {
-//			throw new KundeDeleteBestellungException(neuerKunde);
-//		}
-	////TODO Datenbankzugriff muss noch gemacht werden
+		if(!neuerKunde.getBestellungen().isEmpty()) {
+			throw new KundeDeleteBestellungException(neuerKunde);
+		}
+		//TODO Datenbankzugriff muss noch gemacht werden
 		Mock.deleteKunde(neuerKunde.getId());
 	}
 
-	//TODO findKundeByEmail schreoiben
-	//TODO EmailExistsException schreoiben
-//	public <T extends AbstractKunde> T createKunde(T kunde) {
-//		if (kunde == null) {
-//			return kunde;
-//		}
-//
-//		final AbstractKunde tmp = findKundeByEmail(kunde.getEmail());  // Kein Aufruf als Business-Methode
-//		if (tmp != null) {
-//			throw new EmailExistsException(kunde.getEmail());
-//		}
-//		// TODO Datenbanzugriffsschicht statt Mock
-//		kunde = Mock.createKunde(kunde);
-//
-//		return kunde;
-//	}
+	//TODO Funktion returned null, da ein Konflikt zwischen T und AbstractKunde besteht
+	public <T extends AbstractKunde> T createKunde(T kunde) {
+		if (kunde == null) {
+			return kunde;
+		}
+
+		final AbstractKunde tmp = findKundebyEmail(kunde.getEmail());  // Kein Aufruf als Business-Methode
+		if (tmp != null) {
+			throw new EmailExistsException(kunde.getEmail());
+		}
+		// TODO Datenbanzugriffsschicht statt Mock
+		//kunde = Mock.createKunde(kunde);
+
+		return null;
+	}
 	
-	//TODO findKundeByEmail schreiben
-	//TODO EmailExistsException schreiben
-//	public <T extends AbstractKunde> T updateKunde(T kunde) {
-//		if (kunde == null) {
-//			return null;
-//		}
-//
-//		// Pruefung, ob die Email-Adresse schon existiert
-//		final AbstractKunde vorhandenerKunde = findKundeByEmail(kunde.getEmail());  // Kein Aufruf als Business-Methode
-//		if (vorhandenerKunde != null) {
-//			// Gibt es die Email-Adresse bei einem anderen, bereits vorhandenen Kunden?
-//			if (vorhandenerKunde.getId().longValue() != kunde.getId().longValue()) {
-//				throw new EmailExistsException(kunde.getEmail());
-//			}
-//		}
-//
-//		// TODO Datenbanzugriffsschicht statt Mock
-//		Mock.updateKunde(kunde);
-//		
-//		return kunde;
-//	}
+	
+	public <T extends AbstractKunde> T updateKunde(T kunde) {
+		if (kunde == null) {
+			return null;
+		}
+
+		// Pruefung, ob die Email-Adresse schon existiert
+		final AbstractKunde vorhandenerKunde = findKundebyEmail(kunde.getEmail());  // Kein Aufruf als Business-Methode
+		if (vorhandenerKunde != null) {
+			// Gibt es die Email-Adresse bei einem anderen, bereits vorhandenen Kunden?
+			if (vorhandenerKunde.getId().longValue() != kunde.getId().longValue()) {
+				throw new EmailExistsException(kunde.getEmail());
+			}
+		}
+
+		// TODO Datenbanzugriffsschicht statt Mock
+		Mock.updateKunde(kunde);
+		
+		return kunde;
+	}
 }
