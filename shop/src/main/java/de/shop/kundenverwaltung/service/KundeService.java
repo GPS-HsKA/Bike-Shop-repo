@@ -55,7 +55,7 @@ public class KundeService implements Serializable {
 		Mock.deleteKunde(neuerKunde.getId());
 	}
 
-	//TODO Funktion returned null, da ein Konflikt zwischen T und AbstractKunde besteht
+	//FIXME Funktion returned null, da ein Konflikt zwischen T und AbstractKunde besteht
 	public <T extends AbstractKunde> T createKunde(T kunde) {
 		if (kunde == null) {
 			return kunde;
