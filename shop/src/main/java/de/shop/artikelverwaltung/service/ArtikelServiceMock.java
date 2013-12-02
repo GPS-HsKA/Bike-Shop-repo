@@ -11,7 +11,6 @@ public class ArtikelServiceMock extends ArtikelService {
 
 
 @Override
-	
 public Artikel findArtikelById(Long id) 
 {
 	final Artikel artikel = new Artikel();

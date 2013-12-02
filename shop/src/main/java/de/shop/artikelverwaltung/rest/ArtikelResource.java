@@ -10,6 +10,7 @@ import static javax.ws.rs.core.MediaType.TEXT_XML;
 import java.net.URI;
 import java.util.List;
 
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -31,12 +32,15 @@ import de.shop.artikelverwaltung.domain.Artikel;
 import de.shop.artikelverwaltung.service.ArtikelService;
 import de.shop.artikelverwaltung.service.ArtikelServiceMock;
 import de.shop.util.Mock;
+import de.shop.util.interceptor.Log;
 import de.shop.util.rest.NotFoundException;
 import de.shop.util.rest.UriHelper;
 
 @Path("/artikel")
 @Produces({ APPLICATION_JSON, APPLICATION_XML + ";qs=0.75", TEXT_XML + ";qs=0.5" })
 @Consumes
+@Log
+@RequestScoped
 public class ArtikelResource {
 	private static final String NOT_FOUND_ID = "artikel.notFound.id";
 	public static final String ARTIKEL_BEZEICHNUNG_QUERY_PARAM = "Bezeichnung";
