@@ -9,6 +9,7 @@ import java.net.URI;
 import java.util.List;
 import java.util.Locale;
 
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.validation.Valid;
 import javax.ws.rs.Consumes;
@@ -38,6 +39,7 @@ import de.shop.util.rest.UriHelper;
 @Path("/bestellungen")
 @Produces({ APPLICATION_JSON, APPLICATION_XML + ";qs=0.75", TEXT_XML + ";qs=0.5" })
 @Consumes
+@RequestScoped
 @Log
 public class BestellungResource {
 	private static final String NOT_FOUND_ID = "bestellung.notFound.id";
@@ -60,20 +62,13 @@ public class BestellungResource {
 	@GET
 	@Path("{id:[1-9][0-9]*}")
 	public Response findBestellungById(@PathParam("id") Long id) {
-		// TODO Anwendungskern statt Mock, Verwendung von Locale
 		final Bestellung bestellung = bs.findBestellungById(id);
-		if (bestellung == null) {
-			throw new NotFoundException(NOT_FOUND_ID, id);
-		}
-		
 		setStructuralLinks(bestellung, uriInfo);
 		
 		// Link-Header setzen
-		final Response response = Response.ok(bestellung)
-                                          .links(getTransitionalLinks(bestellung, uriInfo))
-                                          .build();
-		
-		return response;
+		return Response.ok(bestellung)
+		               .links(getTransitionalLinks(bestellung, uriInfo))
+		               .build();
 	}
 	
 	@POST

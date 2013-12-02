@@ -7,8 +7,11 @@ import java.util.Locale;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import javax.enterprise.context.Dependent;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import org.jboss.logging.Logger;
 
@@ -17,6 +20,7 @@ import de.shop.kundenverwaltung.domain.AbstractKunde;
 import de.shop.util.interceptor.Log;
 import de.shop.util.Mock;
 
+@Dependent
 @Log
 public class BestellungServiceImpl implements BestellungService, Serializable{
 
@@ -42,12 +46,14 @@ public class BestellungServiceImpl implements BestellungService, Serializable{
 	}
 	
 	@Override
-	public Bestellung findBestellungById(Long Id) {
+	@NotNull(message = "{bestellung.notFound.id}")
+	public Bestellung findBestellungById(Long id) {
 		// TODO Datenbanzugriffsschicht statt Mock
-		return Mock.findBestellungById(Id);
+		return Mock.findBestellungById(id);
 	}
 
 	@Override
+	@Size(min = 1, message = "{bestellung.notFound.kunde}")
 	public List<Bestellung> findBestellungenByKunde(AbstractKunde kunde) {
 		// TODO Datenbanzugriffsschicht statt Mock
 		return Mock.findBestellungenByKunde(kunde);
