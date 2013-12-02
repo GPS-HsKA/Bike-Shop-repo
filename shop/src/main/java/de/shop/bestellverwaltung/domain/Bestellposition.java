@@ -88,27 +88,33 @@ public class Bestellposition implements Serializable {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Bestellposition other = (Bestellposition) obj; //TODO other als final deklarieren
-		if (anzahl != other.anzahl)
-			return false;
-		if (artikel == null) {
-			if (other.artikel != null)
-				return false;
 		}
-		else if (!artikel.equals(other.artikel))
+		if (obj == null) {
 			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		final Bestellposition other = (Bestellposition) obj;
 		if (id == null) {
-			if (other.id != null)
+			if (other.id != null) {
 				return false;
+			}
 		}
-		else if (!id.equals(other.id))
+		else if (!id.equals(other.id)) {
 			return false;
+		}
+		if (artikel == null) {
+			if (other.artikel != null) {
+				return false;
+			}
+		}
+		else if (!artikel.equals(other.artikel)) {
+			return false;
+		}
+		
 		return true;
 	}
 
