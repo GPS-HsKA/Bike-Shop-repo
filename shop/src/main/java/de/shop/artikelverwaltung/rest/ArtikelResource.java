@@ -28,6 +28,8 @@ import javax.validation.Valid;
 import javax.validation.constraints.Size;
 
 import de.shop.artikelverwaltung.domain.Artikel;
+import de.shop.artikelverwaltung.service.ArtikelService;
+import de.shop.artikelverwaltung.service.ArtikelServiceMock;
 import de.shop.util.Mock;
 import de.shop.util.rest.NotFoundException;
 import de.shop.util.rest.UriHelper;
@@ -43,13 +45,15 @@ public class ArtikelResource {
 	private UriInfo uriInfo;
 	
 	@Inject
+	private ArtikelService as;
+	
+	@Inject
 	private UriHelper uriHelper;
 	
 	@GET
 	@Path("{id:[1-9][0-9]*}")
 	public Response findArtikelById(@PathParam("id") Long id) {
-		// TODO Anwendungskern statt Mock, Verwendung von Locale
-		final Artikel artikel = Mock.findArtikelbyId(id);
+		final Artikel artikel = as.findArtikelById(id);
 		if (artikel == null) {
 			throw new NotFoundException(NOT_FOUND_ID, id);
 		}
@@ -69,7 +73,7 @@ public class ArtikelResource {
 	@Produces
 	public Response createArtikel(@Valid Artikel artikel) {
 		// TODO Anwendungskern statt Mock, Verwendung von Locale
-		artikel = Mock.createArtikel(artikel);
+		// artikel = as.createArtikel(artikel);
 		return Response.created(getUriArtikel(artikel, uriInfo))
 			           .build();
 	}
