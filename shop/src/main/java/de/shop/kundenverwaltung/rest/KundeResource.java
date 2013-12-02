@@ -86,9 +86,6 @@ public class KundeResource {
 	@Path("{" + KUNDEN_ID_PATH_PARAM + ":[1-9][0-9]*}")
 	public Response findKundeById(@PathParam(KUNDEN_ID_PATH_PARAM) Long id) {
 		final AbstractKunde kunde = ks.findKundeByID(id);
-		if (kunde == null) {
-			throw new NotFoundException(NOT_FOUND_ID, id);
-		}
 		
 		setStructuralLinks(kunde, uriInfo);
 		
