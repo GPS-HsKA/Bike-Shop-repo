@@ -63,7 +63,7 @@ public class BestellungResource {
 		// TODO Anwendungskern statt Mock, Verwendung von Locale
 		final Bestellung bestellung = bs.findBestellungById(id);
 		if (bestellung == null) {
-			throw new NotFoundException("Keine Bestellung mit der ID " + id + " gefunden.");
+			throw new NotFoundException(NOT_FOUND_ID, id);
 		}
 		
 		setStructuralLinks(bestellung, uriInfo);
