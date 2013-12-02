@@ -5,21 +5,28 @@ import static de.shop.util.Constants.KEINE_ID;
 import java.io.Serializable;
 import java.net.URI;
 
+//TODO KAPITEL 5
+//import javax.persistence.PostPersist;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlTransient;
+import javax.validation.constraints.Min;
 
 import de.shop.artikelverwaltung.domain.Artikel;
 
 
 public class Bestellposition implements Serializable {
 	private static final long serialVersionUID = 892583057771741519L;
+	private static final int ANZAHL_MIN = 1;
 	
 	private Long id = KEINE_ID;
 	
 	@XmlTransient
 	private Artikel artikel;
 	
+	@Transient
 	private URI artikelUri;
 	
+	@Min(value = ANZAHL_MIN, message = "{bestellposition.anzahl.min}")
 	private short anzahl;
 	
 	public Bestellposition() {
@@ -37,6 +44,12 @@ public class Bestellposition implements Serializable {
 		this.artikel = artikel;
 		this.anzahl = anzahl;
 	}
+	
+	//TODO KAPITEL 5
+//	@PostPersist
+//	private void postPersist() {
+//		LOGGER.debugf("Neue Bestellposition mit ID=%d", id);
+//	}
 
 	public Long getId() {
 		return id;

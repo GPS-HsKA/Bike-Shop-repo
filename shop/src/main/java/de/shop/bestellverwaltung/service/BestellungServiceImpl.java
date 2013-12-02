@@ -42,7 +42,7 @@ public class BestellungServiceImpl implements BestellungService, Serializable{
 	}
 	
 	@Override
-	public Bestellung findBestellungbyId(Long Id) {
+	public Bestellung findBestellungById(Long Id) {
 		// TODO Datenbanzugriffsschicht statt Mock
 		return Mock.findBestellungById(Id);
 	}
@@ -57,11 +57,10 @@ public class BestellungServiceImpl implements BestellungService, Serializable{
 	public Bestellung createBestellung(Bestellung bestellung,
 			AbstractKunde kunde, Locale locale) {
 		// TODO Datenbanzugriffsschicht statt Mock 
-		// FIXME Mock.createBestellung umschreiben
-		//		bestellung = Mock.createBestellung(bestellung, kunde);
-				event.fire(bestellung);
+		bestellung = Mock.createBestellung(bestellung, kunde);
+		event.fire(bestellung);
 				
-				return bestellung;
+		return bestellung;
 	}
 	
 

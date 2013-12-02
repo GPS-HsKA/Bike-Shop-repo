@@ -7,7 +7,7 @@ import de.shop.bestellverwaltung.domain.Bestellung;
 import de.shop.kundenverwaltung.domain.AbstractKunde;
 
 public interface BestellungService {
-	Bestellung findBestellungbyId(Long Id);
+	Bestellung findBestellungById(Long Id);
 	List<Bestellung> findBestellungenByKunde(AbstractKunde kunde);
 	Bestellung createBestellung(Bestellung bestellung, AbstractKunde kunde, Locale locale);
 }

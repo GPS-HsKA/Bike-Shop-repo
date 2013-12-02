@@ -9,7 +9,9 @@ import java.util.List;
 
 
 
+
 import de.shop.artikelverwaltung.domain.Artikel;
+import de.shop.bestellverwaltung.domain.Bestellposition;
 import de.shop.bestellverwaltung.domain.Bestellung;
 import de.shop.kundenverwaltung.domain.AbstractKunde;
 import de.shop.kundenverwaltung.domain.Adresse;
@@ -105,8 +107,7 @@ public final class Mock {
 		bestellung.setId(id);
 		bestellung.setAusgeliefert(false);
 		bestellung.setKunde(kunde);
-		// TODO Positionen anlegen
-//		bestellung.setBestellpositionen(createBestellpositionen(bestellung));		
+		bestellung.setBestellpositionen(createBestellpositionen(bestellung));		
 		
 		return bestellung;
 	}
@@ -125,23 +126,22 @@ public final class Mock {
 		return kunde;
 	}
 
-	//TODO Positionen erzeugen
-//	public static List<Bestellposition> createBestellpositionen(Bestellung bestellung)
-//	{
-//		short anzahl = 3;
-//		long id = 1;
-//		final Artikel art = new Artikel();
-//		art.setId(id);
-//		art.setBezeichnung("Sau gutes Produkt");
-//		art.setBeschreibung("Dieses Produkt ist einfach nur geil!!!");
-//		art.setPreis(0.99);
-//		art.setVerfuegbar(true);
-//		final Bestellposition bestellpositionen = new Bestellposition(art,anzahl);
-//		final List<Bestellposition> bestellpositionenliste = new ArrayList<Bestellposition>();
-//		bestellpositionenliste.add(bestellpositionen);
-//		
-//		return bestellpositionenliste;
-//	}
+	public static List<Bestellposition> createBestellpositionen(Bestellung bestellung)
+	{
+		short anzahl = 3;
+		long id = 1;
+		final Artikel art = new Artikel();
+		art.setId(id);
+		art.setBezeichnung("Sau gutes Produkt");
+		art.setBeschreibung("Dieses Produkt ist einfach nur geil!!!");
+		art.setPreis(0.99);
+		art.setVerfuegbar(true);
+		final Bestellposition bestellpositionen = new Bestellposition(art,anzahl);
+		final List<Bestellposition> bestellpositionenliste = new ArrayList<Bestellposition>();
+		bestellpositionenliste.add(bestellpositionen);
+		
+		return bestellpositionenliste;
+	}
 		
 
 	public static void updateKunde(AbstractKunde kunde) {
@@ -210,9 +210,9 @@ public final class Mock {
 		return artikels;
 	}
 	
-	public static Bestellung createBestellung(Bestellung bestellung) {
+	public static Bestellung createBestellung(Bestellung bestellung, AbstractKunde kunde) {
 		// Neue IDs fuer Artikel
-		final String nachname = bestellung.getKundeUri().toString();
+		final String nachname = kunde.getNachname().toString();
 		bestellung.setId(Long.valueOf(nachname.length()));
 		
 		System.out.println("Neue Bestellung: " + bestellung);

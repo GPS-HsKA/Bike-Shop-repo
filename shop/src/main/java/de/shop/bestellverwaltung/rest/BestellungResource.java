@@ -7,6 +7,7 @@ import static javax.ws.rs.core.MediaType.TEXT_XML;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Locale;
 
 import javax.inject.Inject;
 import javax.validation.Valid;
@@ -24,9 +25,10 @@ import javax.ws.rs.core.UriInfo;
 import de.shop.artikelverwaltung.rest.ArtikelResource;
 import de.shop.bestellverwaltung.domain.Bestellposition;
 import de.shop.bestellverwaltung.domain.Bestellung;
+import de.shop.bestellverwaltung.service.BestellungService;
 import de.shop.kundenverwaltung.domain.AbstractKunde;
 import de.shop.kundenverwaltung.rest.KundeResource;
-import de.shop.util.Mock;
+import de.shop.util.interceptor.Log;
 import de.shop.util.rest.NotFoundException;
 import de.shop.util.rest.UriHelper;
 
@@ -36,9 +38,15 @@ import de.shop.util.rest.UriHelper;
 @Path("/bestellungen")
 @Produces({ APPLICATION_JSON, APPLICATION_XML + ";qs=0.75", TEXT_XML + ";qs=0.5" })
 @Consumes
+@Log
 public class BestellungResource {
+	private static final String NOT_FOUND_ID = "bestellung.notFound.id";
+	
 	@Context
 	private UriInfo uriInfo;
+	
+	@Inject
+	private BestellungService bs;
 	
 	@Inject
 	private UriHelper uriHelper;
@@ -53,7 +61,7 @@ public class BestellungResource {
 	@Path("{id:[1-9][0-9]*}")
 	public Response findBestellungById(@PathParam("id") Long id) {
 		// TODO Anwendungskern statt Mock, Verwendung von Locale
-		final Bestellung bestellung = Mock.findBestellungById(id);
+		final Bestellung bestellung = bs.findBestellungById(id);
 		if (bestellung == null) {
 			throw new NotFoundException("Keine Bestellung mit der ID " + id + " gefunden.");
 		}
@@ -71,9 +79,8 @@ public class BestellungResource {
 	@POST
 	@Consumes({APPLICATION_JSON, APPLICATION_XML, TEXT_XML })
 	@Produces
-	public Response createBestellung(@Valid Bestellung bestellung) {
-		// TODO Anwendungskern statt Mock, Verwendung von Locale
-		bestellung = Mock.createBestellung(bestellung);
+	public Response createBestellung(@Valid Bestellung bestellung, AbstractKunde kunde, Locale locale) {
+		bestellung = bs.createBestellung(bestellung, kunde, locale);
 		return Response.created(getUriBestellung(bestellung, uriInfo))
 			           .build();
 	}
