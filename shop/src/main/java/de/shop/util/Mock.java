@@ -129,14 +129,15 @@ public final class Mock {
 	public static List<Bestellposition> createBestellpositionen(Bestellung bestellung)
 	{
 		short anzahl = 3;
-		long id = 1;
+		long Aid = 1;
+		long Bid = 1;
 		final Artikel art = new Artikel();
-		art.setId(id);
+		art.setId(Aid);
 		art.setBezeichnung("Sau gutes Produkt");
 		art.setBeschreibung("Dieses Produkt ist einfach nur geil!!!");
 		art.setPreis(0.99);
 		art.setVerfuegbar(true);
-		final Bestellposition bestellpositionen = new Bestellposition(art,anzahl);
+		final Bestellposition bestellpositionen = new Bestellposition(art,anzahl, Bid);
 		final List<Bestellposition> bestellpositionenliste = new ArrayList<Bestellposition>();
 		bestellpositionenliste.add(bestellpositionen);
 		

@@ -39,10 +39,11 @@ public class Bestellposition implements Serializable {
 		this.anzahl = 1;
 	}
 	
-	public Bestellposition(Artikel artikel, short anzahl) {
+	public Bestellposition(Artikel artikel, short anzahl, long id) {
 		super();
 		this.artikel = artikel;
 		this.anzahl = anzahl;
+		this.id = id;
 	}
 	
 	//TODO KAPITEL 5
