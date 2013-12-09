@@ -39,7 +39,6 @@ import de.shop.bestellverwaltung.service.BestellungService;
 import de.shop.kundenverwaltung.domain.AbstractKunde;
 import de.shop.kundenverwaltung.service.KundeService;
 import de.shop.util.interceptor.Log;
-import de.shop.util.rest.NotFoundException;
 import de.shop.util.rest.UriHelper;
 
 /**
@@ -140,9 +139,6 @@ public class KundeResource {
 		List<? extends AbstractKunde> kunden = null;
 		if (nachname != null) {
 			kunden = ks.findKundeByNachname(nachname);
-			if (kunden.isEmpty()) {
-				throw new NotFoundException(NOT_FOUND_NACHNAME, nachname);
-			}
 		}
 		else if (plz != null) {
 			// TODO Beispiel fuer ein TODO bei fehlender Implementierung
@@ -150,9 +146,6 @@ public class KundeResource {
 		}
 		else {
 			kunden = ks.findAllKunde();
-			if (kunden.isEmpty()) {
-				throw new NotFoundException(NOT_FOUND_ALL);
-			}
 		}
 		
 		for (AbstractKunde k : kunden) {
@@ -185,9 +178,7 @@ public class KundeResource {
 	public Response findBestellungenByKundeId(@PathParam("id") Long kundeId) {
 		final AbstractKunde kunde = ks.findKundeByID(kundeId);
 		final List<Bestellung> bestellungen = bs.findBestellungenByKunde(kunde);
-		if (bestellungen.isEmpty()) {
-			throw new NotFoundException(NOT_FOUND_ID, kundeId);
-		}
+		
 		
 		// URIs innerhalb der gefundenen Bestellungen anpassen
 		for (Bestellung bestellung : bestellungen) {

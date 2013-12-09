@@ -26,7 +26,7 @@ public class Bestellung implements Serializable {
 	private URI kundeUri;
 	
 	@NotNull
-	@Size(min = 1,  message = "{kunde.nachname.size}")
+	@Size(min = 1,  message = "{bestellung.bestellposition.size}")
 	@Valid
 	private List<Bestellposition> bestellpositionen;
 	

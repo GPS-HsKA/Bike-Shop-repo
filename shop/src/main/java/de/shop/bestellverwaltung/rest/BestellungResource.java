@@ -30,7 +30,6 @@ import de.shop.bestellverwaltung.service.BestellungService;
 import de.shop.kundenverwaltung.domain.AbstractKunde;
 import de.shop.kundenverwaltung.rest.KundeResource;
 import de.shop.util.interceptor.Log;
-import de.shop.util.rest.NotFoundException;
 import de.shop.util.rest.UriHelper;
 
 /**

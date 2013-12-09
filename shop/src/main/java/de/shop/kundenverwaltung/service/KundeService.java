@@ -16,7 +16,7 @@ import de.shop.util.interceptor.Log;
 public class KundeService implements Serializable {
 	private static final long serialVersionUID = 4360325837484294309L;
 	
-	@NotNull(message = "{kunde.notFound.id}")
+	@NotNull(message = "{kundenverwaltung.kunde.notFound.id}")
 	public AbstractKunde findKundeByID(Long id) {
 		if(id == null)
 			return null;
@@ -25,20 +25,20 @@ public class KundeService implements Serializable {
 	
 	}
 
-	@NotNull(message = "{kunde.NotFound.id}")
+	@NotNull(message = "{kundenverwaltung.kunde.notFound.id}")
 	public AbstractKunde findKundebyEmail(String email) {
 		if(email == null)
 			return null;
 		//TODO Datenbankzugriff muss noch gemacht werden
 		return Mock.findKundeByEmail(email);
 	}
-	
+	@Size(min = 1, message = "{kundenverwaltung.kunde.notFound.alleKunden}")
 	public List<AbstractKunde> findAllKunde(){
 		//TODO Datenbankzugriff muss noch gemacht werden
 		return Mock.findAllKunden();
 	}
 	
-	@Size(min = 1, message = "{kunde.notFound.nachname}")
+	@Size(min = 1, message = "{kundenverwaltung.kunde.notFound.nachname}")
 	public List<AbstractKunde> findKundeByNachname(String nachname) {
 		//TODO Datenbankzugriff muss noch gemacht werden
 		return Mock.findKundenByNachname(nachname);

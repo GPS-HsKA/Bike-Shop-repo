@@ -33,7 +33,6 @@ import de.shop.artikelverwaltung.service.ArtikelService;
 import de.shop.artikelverwaltung.service.ArtikelServiceMock;
 import de.shop.util.Mock;
 import de.shop.util.interceptor.Log;
-import de.shop.util.rest.NotFoundException;
 import de.shop.util.rest.UriHelper;
 
 @Path("/artikel")
@@ -42,7 +41,7 @@ import de.shop.util.rest.UriHelper;
 @Log
 @RequestScoped
 public class ArtikelResource {
-	private static final String NOT_FOUND_ID = "artikel.notFound.id";
+//	private static final String NOT_FOUND_ID = "artikel.notFound.id";
 	public static final String ARTIKEL_BEZEICHNUNG_QUERY_PARAM = "Bezeichnung";
 	
 	@Context
@@ -58,9 +57,7 @@ public class ArtikelResource {
 	@Path("{id:[1-9][0-9]*}")
 	public Response findArtikelById(@PathParam("id") Long id) {
 		final Artikel artikel = as.findArtikelById(id);
-		if (artikel == null) {
-			throw new NotFoundException(NOT_FOUND_ID, id);
-		}
+
 		
 		setStructuralLinks(artikel, uriInfo);
 		
@@ -73,11 +70,11 @@ public class ArtikelResource {
 	}
 	
 	@POST
-	@Consumes({APPLICATION_JSON, APPLICATION_XML, TEXT_XML })
+	@Consumes({APPLICATION_JSON, APPLICATION_XML, TEXT_XML})
 	@Produces
 	public Response createArtikel(@Valid Artikel artikel) {
 		// TODO Anwendungskern statt Mock, Verwendung von Locale
-		// artikel = as.createArtikel(artikel);
+			artikel = as.createArtikel(artikel);
 		return Response.created(getUriArtikel(artikel, uriInfo))
 			           .build();
 	}
@@ -87,7 +84,7 @@ public class ArtikelResource {
 	@Produces
 	public void updateArtikel(@Valid Artikel artikel) {
 		// TODO Anwendungskern statt Mock, Verwendung von Locale
-		Mock.updateArtikel(artikel);
+		as.updateArtikel(artikel);
 	}
 	
 	public void setStructuralLinks(Artikel artikel, UriInfo uriInfo) {
@@ -102,17 +99,11 @@ public class ArtikelResource {
 		List<? extends Artikel> artikels = null;
 		if (bezeichnung != null) {
 			// TODO Anwendungskern statt Mock, Verwendung von Locale
-			artikels = Mock.findArtikelByBezeichnung(bezeichnung);
-			if (artikels.isEmpty()) {
-				throw new NotFoundException("Kein Artikel mit Bezeichnung " + bezeichnung + " gefunden.");
-			}
+			artikels = as.findArtikelByBezeichnung(bezeichnung);
 		}
 		else {
 			// TODO Anwendungskern statt Mock, Verwendung von Locale
-			artikels = Mock.findAllArtikels();
-			if (artikels.isEmpty()) {
-				throw new NotFoundException("Keine Artikel vorhanden.");
-			}
+			artikels = as.findAllArtikels();
 		}
 		
 		for (Artikel a : artikels) {
