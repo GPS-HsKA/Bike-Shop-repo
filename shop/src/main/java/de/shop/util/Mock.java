@@ -48,14 +48,14 @@ public final class Mock {
 		adresse.setKunde(kunde);
 		kunde.setAdresse(adresse);
 		
-		if (kunde.getClass().equals(Privatkunde.class)) {
+//		if (kunde.getClass().equals(Privatkunde.class)) {
 			//TODO Hobbies
 //			final Privatkunde privatkunde = (Privatkunde) kunde;
 //			final Set<HobbyType> hobbies = new HashSet<>();
 //			hobbies.add(HobbyType.LESEN);
 //			hobbies.add(HobbyType.REISEN);
 //			privatkunde.setHobbies(hobbies);
-		}
+//		}
 		
 		return kunde;
 	}
@@ -128,16 +128,16 @@ public final class Mock {
 
 	public static List<Bestellposition> createBestellpositionen(Bestellung bestellung)
 	{
-		short anzahl = 3;
-		long Aid = 1;
-		long Bid = 1;
+		final short anzahl = 3;
+		final long aId = 1;
+		final long bId = 1;
 		final Artikel art = new Artikel();
-		art.setId(Aid);
+		art.setId(aId);
 		art.setBezeichnung("Sau gutes Produkt");
 		art.setBeschreibung("Dieses Produkt ist einfach nur geil!!!");
 		art.setPreis(0.99);
 		art.setVerfuegbar(true);
-		final Bestellposition bestellpositionen = new Bestellposition(art,anzahl, Bid);
+		final Bestellposition bestellpositionen = new Bestellposition(art, anzahl, bId);
 		final List<Bestellposition> bestellpositionenliste = new ArrayList<Bestellposition>();
 		bestellpositionenliste.add(bestellpositionen);
 		
