@@ -18,7 +18,7 @@ public class KundeService implements Serializable {
 	
 	@NotNull(message = "{kundenverwaltung.kunde.notFound.id}")
 	public AbstractKunde findKundeByID(Long id) {
-		if(id == null)
+		if (id == null)
 			return null;
 		//TODO Datenbankzugriff muss noch gemacht werden
 		return Mock.findKundeById(id);
@@ -27,13 +27,13 @@ public class KundeService implements Serializable {
 
 	@NotNull(message = "{kundenverwaltung.kunde.notFound.id}")
 	public AbstractKunde findKundebyEmail(String email) {
-		if(email == null)
+		if (email == null)
 			return null;
 		//TODO Datenbankzugriff muss noch gemacht werden
 		return Mock.findKundeByEmail(email);
 	}
 	@Size(min = 1, message = "{kundenverwaltung.kunde.notFound.alleKunden}")
-	public List<AbstractKunde> findAllKunde(){
+	public List<AbstractKunde> findAllKunde() {
 		//TODO Datenbankzugriff muss noch gemacht werden
 		return Mock.findAllKunden();
 	}
@@ -45,10 +45,10 @@ public class KundeService implements Serializable {
 	}
 	
 	public void deleteKunde(Long id) {
-		AbstractKunde neuerKunde = findKundeByID(id);
-		if(neuerKunde == null)
+		final AbstractKunde neuerKunde = findKundeByID(id);
+		if (neuerKunde == null)
 			return;
-		if(!neuerKunde.getBestellungen().isEmpty()) {
+		if (!neuerKunde.getBestellungen().isEmpty()) {
 			throw new KundeDeleteBestellungException(neuerKunde);
 		}
 		//TODO Datenbankzugriff muss noch gemacht werden
@@ -78,13 +78,13 @@ public class KundeService implements Serializable {
 		}
 
 		// Pruefung, ob die Email-Adresse schon existiert
-		final AbstractKunde vorhandenerKunde = findKundebyEmail(kunde.getEmail());  // Kein Aufruf als Business-Methode
-		if (vorhandenerKunde != null) {
-			// Gibt es die Email-Adresse bei einem anderen, bereits vorhandenen Kunden?
+//		final AbstractKunde vorhandenerKunde = findKundebyEmail(kunde.getEmail());  // Kein Aufruf als Business-Methode
+//		if (vorhandenerKunde != null) {
+//			 Gibt es die Email-Adresse bei einem anderen, bereits vorhandenen Kunden?
 //			if (vorhandenerKunde.getId().longValue() != kunde.getId().longValue()) {
 //				throw new EmailExistsException(kunde.getEmail());
 //			}
-		}
+//		}
 
 		// TODO Datenbanzugriffsschicht statt Mock
 		Mock.updateKunde(kunde);
