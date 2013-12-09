@@ -4,9 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.enterprise.context.Dependent;
-import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import javax.ws.rs.core.Response;
 
 //import org.hibernate.validator.constraints.NotEmpty;
 
@@ -19,7 +17,7 @@ import de.shop.util.Mock;
 public class ArtikelService implements Serializable {
 	private static final long serialVersionUID = -5105686816948437276L;
 
-	@NotNull( message = "{artikelverwaltung.artikel.notFound.id}")
+	@NotNull(message = "{artikelverwaltung.artikel.notFound.id}")
 	public Artikel findArtikelById(Long id) {
 		// TODO id pruefen
 		// TODO Datenbanzugriffsschicht statt Mock

@@ -3,7 +3,6 @@ package de.shop.artikelverwaltung.domain;
 import java.io.Serializable;
 
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.validation.Valid;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -86,7 +85,7 @@ public class Artikel implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Artikel other = (Artikel) obj; //TODO other als final deklarieren
+		final Artikel other = (Artikel) obj; //TODO other als final deklarieren
 		if (beschreibung == null) {
 			if (other.beschreibung != null)
 				return false;

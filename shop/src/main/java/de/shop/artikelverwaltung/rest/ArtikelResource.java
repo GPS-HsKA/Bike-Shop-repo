@@ -30,8 +30,6 @@ import javax.validation.constraints.Size;
 
 import de.shop.artikelverwaltung.domain.Artikel;
 import de.shop.artikelverwaltung.service.ArtikelService;
-import de.shop.artikelverwaltung.service.ArtikelServiceMock;
-import de.shop.util.Mock;
 import de.shop.util.interceptor.Log;
 import de.shop.util.rest.UriHelper;
 
