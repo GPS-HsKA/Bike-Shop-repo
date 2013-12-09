@@ -54,10 +54,6 @@ public class KundeResource {
 	public static final String KUNDEN_NACHNAME_QUERY_PARAM = "nachname";
 	public static final String KUNDEN_PLZ_QUERY_PARAM = "plz";
 	
-	private static final String NOT_FOUND_ID = "kunde.notFound.id";
-	private static final String NOT_FOUND_NACHNAME = "kunde.notFound.nachname";
-	private static final String NOT_FOUND_ALL = "kunde.notFound.all";
-
 	@Inject
 	private KundeService ks;
 	

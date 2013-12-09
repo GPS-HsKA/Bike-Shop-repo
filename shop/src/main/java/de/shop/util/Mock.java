@@ -38,7 +38,7 @@ public final class Mock {
 		
 		final AbstractKunde kunde = id % 2 == 1 ? new Privatkunde() : new Firmenkunde();
 		kunde.setId(id);
-		kunde.setNachname("Nachname" + id);
+		kunde.setNachname("Nachname");
 		kunde.setEmail("" + id + "@hska.de");
 		
 		final Adresse adresse = new Adresse();

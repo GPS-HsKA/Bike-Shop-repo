@@ -81,9 +81,9 @@ public class KundeService implements Serializable {
 		final AbstractKunde vorhandenerKunde = findKundebyEmail(kunde.getEmail());  // Kein Aufruf als Business-Methode
 		if (vorhandenerKunde != null) {
 			// Gibt es die Email-Adresse bei einem anderen, bereits vorhandenen Kunden?
-			if (vorhandenerKunde.getId().longValue() != kunde.getId().longValue()) {
-				throw new EmailExistsException(kunde.getEmail());
-			}
+//			if (vorhandenerKunde.getId().longValue() != kunde.getId().longValue()) {
+//				throw new EmailExistsException(kunde.getEmail());
+//			}
 		}
 
 		// TODO Datenbanzugriffsschicht statt Mock
