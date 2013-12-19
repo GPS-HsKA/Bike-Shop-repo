@@ -24,13 +24,15 @@ import de.shop.util.interceptor.Log;
 import de.shop.util.mail.AbsenderMail;
 import de.shop.util.mail.AbsenderName;
 
-/**
- * @author <a href="mailto:Juergen.Zimmermann@HS-Karlsruhe.de">J&uuml;rgen Zimmermann</a>
- */
+
 @ApplicationScoped
 @Log
 public class BestellungObserver implements Serializable {
-	private static final long serialVersionUID = -1567643645881819340L;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5462271675529289734L;
+
 	private static final Logger LOGGER = Logger.getLogger(MethodHandles.lookup().lookupClass());
 	private static final String NEWLINE = System.getProperty("line.separator");
 	
@@ -46,7 +48,7 @@ public class BestellungObserver implements Serializable {
 	private String absenderName;
 
 	@PostConstruct
-	private void init() {
+	private void postConstruct() {
 		if (absenderMail == null) {
 			LOGGER.warn("Der Absender fuer Bestellung-Emails ist nicht gesetzt.");
 			return;
@@ -60,10 +62,8 @@ public class BestellungObserver implements Serializable {
 		if (absenderMail == null || empfaengerMail == null) {
 			return;
 		}
-		//TODO VORNAME HINZUFÜGEN FÜR KUNDEN
-//		final String vorname = kunde.getVorname() == null ? "" : kunde.getVorname();
-//		final String empfaengerName = vorname + " " + kunde.getNachname();
-		final String empfaengerName = kunde.getNachname();
+		final String vorname = kunde.getVorname() == null ? "" : kunde.getVorname();
+		final String empfaengerName = vorname + " " + kunde.getNachname();
 		
 		final MimeMessage message = new MimeMessage(session);
 
