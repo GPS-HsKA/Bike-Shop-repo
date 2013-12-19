@@ -30,15 +30,6 @@ public class Privatkunde extends AbstractKunde {
 //	
 //	@Column(length = 1)
 //	private GeschlechtType geschlecht = GeschlechtType.WEIBLICH;
-	
-	@ElementCollection(fetch = EAGER)
-	@CollectionTable(name = "kunde_hobby",
-	                 joinColumns = @JoinColumn(name = "kunde_fk", nullable = false),
-	                 uniqueConstraints =  @UniqueConstraint(columnNames = { "kunde_fk", "hobby" }),
-	                 indexes = @Index(columnList = "kunde_fk"))
-	@Column(table = "kunde_hobby", name = "hobby", length = 2, nullable = false)
-	private Set<HobbyType> hobbies;
-//TODO Familienstand & Geschlecht
 //	public FamilienstandType getFamilienstand() {
 //		return familienstand;
 //	}
@@ -52,17 +43,10 @@ public class Privatkunde extends AbstractKunde {
 //	public void setGeschlecht(GeschlechtType geschlecht) {
 //		this.geschlecht = geschlecht;
 //	}
-	public Set<HobbyType> getHobbies() {
-		return hobbies;
-	}
-	
-	public void setHobbies(Set<HobbyType> hobbies) {
-		this.hobbies = hobbies;
-	}
-
-	@Override
-	public String toString() {
-		return "Privatkunde [" + super.toString() + /*", familienstand=" + familienstand
-			   + ", geschlecht=" + geschlecht + */", hobbies=" + hobbies + ']';
-	}
+//
+//	@Override
+//	public String toString() {
+//		return "Privatkunde [" + super.toString() + ", familienstand=" + familienstand
+//			   + ", geschlecht=" + geschlecht + ']';
+//	}
 }
