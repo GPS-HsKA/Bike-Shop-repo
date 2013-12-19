@@ -1,34 +1,128 @@
 package de.shop.bestellverwaltung.domain;
 
 import java.io.Serializable;
+import java.lang.invoke.MethodHandles;
 import java.net.URI;
 import java.util.Collections;
+import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+import static de.shop.util.Constants.KEINE_ID;
+import static javax.persistence.CascadeType.PERSIST;
+import static javax.persistence.CascadeType.REMOVE;
+import static javax.persistence.FetchType.EAGER;
+
+import javax.persistence.Basic;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedEntityGraphs;
+import javax.persistence.NamedEntityGraph;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.NamedAttributeNode;
+import javax.persistence.OneToMany;
+import javax.persistence.PostPersist;
+import javax.persistence.Table;
+import javax.persistence.Index;
+import javax.persistence.Transient;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+
+import org.hibernate.validator.constraints.NotEmpty;
+
+
+
+import org.jboss.logging.Logger;
 
 import de.shop.kundenverwaltung.domain.AbstractKunde;
 
 @XmlRootElement
+@Entity
+
+@Table (indexes = {
+		@Index (columnList = "kunde_fk"),
+		@Index (columnList = "erzeugt")
+})
+@NamedQueries({
+	@NamedQuery(name  = Bestellung.FIND_BESTELLUNGEN_BY_KUNDE,
+                query = "SELECT b"
+			            + " FROM   Bestellung b"
+						+ " WHERE  b.kunde = :" + Bestellung.PARAM_KUNDE),
+	@NamedQuery(name  = Bestellung.FIND_KUNDE_BY_ID,
+ 			    query = "SELECT b.kunde"
+                        + " FROM   Bestellung b"
+  			            + " WHERE  b.id = :" + Bestellung.PARAM_ID)
+})
+@NamedEntityGraphs({
+	@NamedEntityGraph(name = Bestellung.GRAPH_LIEFERUNGEN,
+					  attributeNodes = @NamedAttributeNode("lieferungen"))
+})
 public class Bestellung implements Serializable {
 	private static final long serialVersionUID = 1618359234119003714L;
+	private static final Logger LOGGER = Logger.getLogger(MethodHandles.lookup().lookupClass());
 	
-	private Long id;
-	private boolean ausgeliefert;
+	private static final String PREFIX = "Bestellung.";
+	public static final String FIND_BESTELLUNGEN_BY_KUNDE = PREFIX + "findBestellungenByKunde";
+	public static final String FIND_KUNDE_BY_ID = PREFIX + "findBestellungKundeById";
 	
+	public static final String PARAM_KUNDE = "kunde";
+	public static final String PARAM_ID = "id";
+	
+	public static final String GRAPH_LIEFERUNGEN = PREFIX + "lieferungen";
+	
+	@Id
+	@GeneratedValue
+	@Basic(optional=false)
+	private Long id = KEINE_ID;
+	
+	@ManyToOne
+	@JoinColumn(name="kunde_fk", nullable = false, insertable = false, updatable = false)
 	@XmlTransient
 	private AbstractKunde kunde;
 	
+	@Transient
 	private URI kundeUri;
 	
-	@NotNull
-	@Size(min = 1,  message = "{bestellung.bestellposition.size}")
+	@OneToMany(fetch = EAGER, cascade = { PERSIST, REMOVE })
+	@JoinColumn(name = "bestellung_fk", nullable = false)
+	@NotEmpty(message = "{bestellung.bestellpositionen.notEmpty}")
 	@Valid
-	private List<Bestellposition> bestellpositionen;
+	private Set<Bestellposition> bestellpositionen;
+	
+	private boolean ausgeliefert;
+	
+	//TODO Datum woher?
+//	@XmlElement
+//	public Date getDatum() {
+//		return getErzeugt();
+//	}
+//	
+//	public void setDatum(Date datum) {
+//		setErzeugt(datum);
+//	}
+
+	public Bestellung() {
+		super();
+	}
+	
+	public Bestellung(Set<Bestellposition> bestellpositionen) {
+		super();
+		this.bestellpositionen = bestellpositionen;
+	}
+	
+	@PostPersist
+	private void postPersist() {
+		LOGGER.debugf("Neue Bestellung mit ID=%d", id);
+	}
 	
 	public Long getId() {
 		return id;
@@ -36,69 +130,100 @@ public class Bestellung implements Serializable {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public boolean isAusgeliefert() {
-		return ausgeliefert;
+
+	public Set<Bestellposition> getBestellpositionen() {
+		if (bestellpositionen == null) {
+			return null;
+		}
+		
+		return Collections.unmodifiableSet(bestellpositionen);
 	}
-	public void setAusgeliefert(boolean ausgeliefert) {
-		this.ausgeliefert = ausgeliefert;
+	
+	public void setBestellpositionen(Set<Bestellposition> bestellpositionen) {
+		if (this.bestellpositionen == null) {
+			this.bestellpositionen = bestellpositionen;
+			return;
+		}
+		
+		// Wiederverwendung der vorhandenen Collection
+		this.bestellpositionen.clear();
+		if (bestellpositionen != null) {
+			this.bestellpositionen.addAll(bestellpositionen);
+		}
 	}
+	
+	public Bestellung addBestellposition(Bestellposition bestellposition) {
+		if (bestellpositionen == null) {
+			bestellpositionen = new HashSet<>();
+		}
+		bestellpositionen.add(bestellposition);
+		return this;
+	}
+
 	public AbstractKunde getKunde() {
 		return kunde;
 	}
 	public void setKunde(AbstractKunde kunde) {
 		this.kunde = kunde;
 	}
-	
+
 	public URI getKundeUri() {
 		return kundeUri;
 	}
+
 	public void setKundeUri(URI kundeUri) {
 		this.kundeUri = kundeUri;
 	}
 	
-	public List<Bestellposition> getBestellpositionen() {
-		if (bestellpositionen == null) {
-			return null;
-		}
-		return Collections.unmodifiableList(bestellpositionen);
+	@Override
+	public String toString() {
+		final Long kundeId = kunde == null ? null : kunde.getId();
+		return "Bestellung [id=" + id + ", kundeId=" + kundeId + ", kundeUri=" + kundeUri
+				+ ", " + super.toString() + ']';
 	}
-	public void setBestellpositionen(List<Bestellposition> bestellpositionen) {
-		if (this.bestellpositionen == null) {
-			this.bestellpositionen = bestellpositionen;
-			return;
-		}
-		this.bestellpositionen.clear();
-		if (bestellpositionen != null) {
-			this.bestellpositionen.addAll(bestellpositionen);
-		}
-	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((kunde == null) ? 0 : kunde.hashCode());
+		//TODO Datum woher?
+//		result = prime * result + ((getErzeugt() == null) ? 0 : getErzeugt().hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		final Bestellung other = (Bestellung) obj;
-		if (id == null) {
-			if (other.id != null)
-				return false;
 		}
-		else if (!id.equals(other.id))
+		if (obj == null) {
 			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		final Bestellung other = (Bestellung) obj;
+		
+		if (kunde == null) {
+			if (other.kunde != null) {
+				return false;
+			}
+		}
+		else if (!kunde.equals(other.kunde)) {
+			return false;
+		}
+		
+		//TODO Datum woher?
+//		if (getErzeugt() == null) {
+//			if (other.getErzeugt() != null) {
+//				return false;
+//			}
+//		}
+//		else if (!getErzeugt().equals(other.getErzeugt())) {
+//			return false;
+//		}
+		
 		return true;
-	}
-	
-	@Override
-	public String toString() {
-		return "Bestellung [id=" + id + ", ausgeliefert=" + ausgeliefert + ", kundeUri=" + kundeUri + "]";
 	}
 }
