@@ -1,5 +1,6 @@
 package de.shop.kundenverwaltung.domain;
 
+import static de.shop.util.Constants.KEINE_ID;
 import static javax.persistence.CascadeType.PERSIST;
 import static javax.persistence.CascadeType.REMOVE;
 import static javax.persistence.TemporalType.DATE;
@@ -167,7 +168,7 @@ public abstract class AbstractKunde implements Serializable {
 	@Id
 	@GeneratedValue
 	@Basic(optional = false)
-	private Long id;
+	private Long id = KEINE_ID;
 	
 	@NotNull(message = "{kunde.nachname.notNull}")
 	@Size(min = NACHNAME_LENGTH_MIN, max = NACHNAME_LENGTH_MAX, message = "{kunde.nachname.length}")
