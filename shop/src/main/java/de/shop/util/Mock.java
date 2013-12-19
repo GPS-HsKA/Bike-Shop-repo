@@ -10,6 +10,9 @@ import java.util.List;
 
 
 
+import java.util.Set;
+import java.util.TreeSet;
+
 import de.shop.artikelverwaltung.domain.Artikel;
 import de.shop.bestellverwaltung.domain.Bestellposition;
 import de.shop.bestellverwaltung.domain.Bestellung;
@@ -105,7 +108,7 @@ public final class Mock {
 
 		final Bestellung bestellung = new Bestellung();
 		bestellung.setId(id);
-		bestellung.setAusgeliefert(false);
+//		bestellung.setBestellposition(createBestellpositionen(bestellung));
 		bestellung.setKunde(kunde);
 		bestellung.setBestellpositionen(createBestellpositionen(bestellung));		
 		
@@ -126,7 +129,7 @@ public final class Mock {
 		return kunde;
 	}
 
-	public static List<Bestellposition> createBestellpositionen(Bestellung bestellung)
+	public static Set<Bestellposition> createBestellpositionen(Bestellung bestellung)
 	{
 		final short anzahl = 3;
 		final long aId = 1;
@@ -137,8 +140,8 @@ public final class Mock {
 		art.setBeschreibung("Dieses Produkt ist einfach nur geil!!!");
 		art.setPreis(0.99);
 		art.setVerfuegbar(true);
-		final Bestellposition bestellpositionen = new Bestellposition(art, anzahl, bId);
-		final List<Bestellposition> bestellpositionenliste = new ArrayList<Bestellposition>();
+		final Bestellposition bestellpositionen = new Bestellposition(art, anzahl);
+		final Set<Bestellposition> bestellpositionenliste = new TreeSet<Bestellposition>();
 		bestellpositionenliste.add(bestellpositionen);
 		
 		return bestellpositionenliste;
