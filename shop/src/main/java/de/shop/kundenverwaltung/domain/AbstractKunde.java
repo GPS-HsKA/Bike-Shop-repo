@@ -117,7 +117,7 @@ import de.shop.bestellverwaltung.domain.Bestellung;
 			            + " FROM  AbstractKunde k"
 			    		+ " WHERE TYPE(k) IN (Privatkunde, Firmenkunde)")
 })
-//TODO NamedEntityGraphs machen
+
 @NamedEntityGraphs({
 	@NamedEntityGraph(name = AbstractKunde.GRAPH_BESTELLUNGEN,
 					  attributeNodes = @NamedAttributeNode("bestellungen")),
