@@ -121,8 +121,8 @@ import de.shop.bestellverwaltung.domain.Bestellung;
 @NamedEntityGraphs({
 	@NamedEntityGraph(name = AbstractKunde.GRAPH_BESTELLUNGEN,
 					  attributeNodes = @NamedAttributeNode("bestellungen")),
-	@NamedEntityGraph(name = AbstractKunde.GRAPH_WARTUNGSVERTRAEGE,
-					  attributeNodes = @NamedAttributeNode("wartungsvertraege"))
+//	@NamedEntityGraph(name = AbstractKunde.GRAPH_WARTUNGSVERTRAEGE,
+//					  attributeNodes = @NamedAttributeNode("wartungsvertraege"))
 })
 public abstract class AbstractKunde implements Serializable {
 	private static final long serialVersionUID = 7401524595142572933L;
