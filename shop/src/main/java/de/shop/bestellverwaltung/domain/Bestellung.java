@@ -49,8 +49,8 @@ import de.shop.kundenverwaltung.domain.AbstractKunde;
 @Entity
 
 @Table (indexes = {
-		@Index (columnList = "kunde_fk"),
-		@Index (columnList = "erzeugt")
+		@Index (columnList = "kunde_fk")//,
+		//@Index (columnList = "erzeugt")
 })
 @NamedQueries({
 	@NamedQuery(name  = Bestellung.FIND_BESTELLUNGEN_BY_KUNDE,
@@ -62,10 +62,10 @@ import de.shop.kundenverwaltung.domain.AbstractKunde;
                         + " FROM   Bestellung b"
   			            + " WHERE  b.id = :" + Bestellung.PARAM_ID)
 })
-@NamedEntityGraphs({
-	@NamedEntityGraph(name = Bestellung.GRAPH_LIEFERUNGEN,
-					  attributeNodes = @NamedAttributeNode("lieferungen"))
-})
+//@NamedEntityGraphs({
+//	@NamedEntityGraph(name = Bestellung.GRAPH_LIEFERUNGEN,
+//					  attributeNodes = @NamedAttributeNode("lieferungen"))
+//})
 public class Bestellung implements Serializable {
 	private static final long serialVersionUID = 1618359234119003714L;
 	private static final Logger LOGGER = Logger.getLogger(MethodHandles.lookup().lookupClass());
