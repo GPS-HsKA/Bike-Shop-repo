@@ -1,56 +1,55 @@
 package de.shop.bestellverwaltung.domain;
 
-import java.io.Serializable;
+import static de.shop.util.Constants.KEINE_ID;
+import static javax.persistence.CascadeType.PERSIST;
+import static javax.persistence.CascadeType.REMOVE;
+import static javax.persistence.FetchType.EAGER;
+
 import java.lang.invoke.MethodHandles;
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import static de.shop.util.Constants.KEINE_ID;
-import static javax.persistence.CascadeType.PERSIST;
-import static javax.persistence.CascadeType.REMOVE;
-import static javax.persistence.FetchType.EAGER;
-
 import javax.persistence.Basic;
+import javax.persistence.Cacheable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Index;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedEntityGraphs;
+import javax.persistence.NamedAttributeNode;
 import javax.persistence.NamedEntityGraph;
+import javax.persistence.NamedEntityGraphs;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.NamedAttributeNode;
 import javax.persistence.OneToMany;
 import javax.persistence.PostPersist;
 import javax.persistence.Table;
-import javax.persistence.Index;
 import javax.persistence.Transient;
 import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 import org.hibernate.validator.constraints.NotEmpty;
-
-
-
 import org.jboss.logging.Logger;
 
 import de.shop.kundenverwaltung.domain.AbstractKunde;
+import de.shop.util.persistence.AbstractAuditable;
 
 @XmlRootElement
 @Entity
 
 @Table (indexes = {
-		@Index (columnList = "kunde_fk")//,
-		//@Index (columnList = "erzeugt")
+		@Index (columnList = "kunde_fk"),
+		@Index (columnList = "erzeugt")
 })
 @NamedQueries({
 	@NamedQuery(name  = Bestellung.FIND_BESTELLUNGEN_BY_KUNDE,
@@ -66,7 +65,7 @@ import de.shop.kundenverwaltung.domain.AbstractKunde;
 //	@NamedEntityGraph(name = Bestellung.GRAPH_LIEFERUNGEN,
 //					  attributeNodes = @NamedAttributeNode("lieferungen"))
 //})
-public class Bestellung implements Serializable {
+public class Bestellung extends AbstractAuditable {
 	private static final long serialVersionUID = 1618359234119003714L;
 	private static final Logger LOGGER = Logger.getLogger(MethodHandles.lookup().lookupClass());
 	
@@ -98,17 +97,14 @@ public class Bestellung implements Serializable {
 	@Valid
 	private Set<Bestellposition> bestellpositionen;
 	
-	private boolean ausgeliefert;
+	@XmlElement
+	public Date getDatum() {
+		return getErzeugt();
+	}
 	
-	//TODO Datum woher?
-//	@XmlElement
-//	public Date getDatum() {
-//		return getErzeugt();
-//	}
-//	
-//	public void setDatum(Date datum) {
-//		setErzeugt(datum);
-//	}
+	public void setDatum(Date datum) {
+		setErzeugt(datum);
+	}
 
 	public Bestellung() {
 		super();
@@ -187,8 +183,7 @@ public class Bestellung implements Serializable {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((kunde == null) ? 0 : kunde.hashCode());
-		//TODO Datum woher?
-//		result = prime * result + ((getErzeugt() == null) ? 0 : getErzeugt().hashCode());
+		result = prime * result + ((getErzeugt() == null) ? 0 : getErzeugt().hashCode());
 		return result;
 	}
 
@@ -214,15 +209,14 @@ public class Bestellung implements Serializable {
 			return false;
 		}
 		
-		//TODO Datum woher?
-//		if (getErzeugt() == null) {
-//			if (other.getErzeugt() != null) {
-//				return false;
-//			}
-//		}
-//		else if (!getErzeugt().equals(other.getErzeugt())) {
-//			return false;
-//		}
+		if (getErzeugt() == null) {
+			if (other.getErzeugt() != null) {
+				return false;
+			}
+		}
+		else if (!getErzeugt().equals(other.getErzeugt())) {
+			return false;
+		}
 		
 		return true;
 	}
