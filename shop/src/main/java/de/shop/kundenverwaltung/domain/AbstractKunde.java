@@ -59,6 +59,7 @@ import org.hibernate.validator.constraints.ScriptAssert;
 import org.jboss.logging.Logger;
 
 import de.shop.bestellverwaltung.domain.Bestellung;
+import de.shop.util.persistence.AbstractAuditable;
 
 @ScriptAssert(lang = "javascript", 
 			  script = "_this.password != null && !_this.password.equals(\"\")"
@@ -124,7 +125,7 @@ import de.shop.bestellverwaltung.domain.Bestellung;
 //	@NamedEntityGraph(name = AbstractKunde.GRAPH_WARTUNGSVERTRAEGE,
 //					  attributeNodes = @NamedAttributeNode("wartungsvertraege"))
 })
-public abstract class AbstractKunde implements Serializable {
+public abstract class AbstractKunde extends AbstractAuditable {
 	private static final long serialVersionUID = 7401524595142572933L;
 	private static final Logger LOGGER = Logger.getLogger(MethodHandles.lookup().lookupClass());
 	
