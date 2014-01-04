@@ -5,6 +5,7 @@ import static de.shop.util.Constants.KEINE_ID;
 import java.io.Serializable;
 import java.lang.invoke.MethodHandles;
 import java.net.URI;
+
 import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -23,6 +24,7 @@ import javax.validation.constraints.Min;
 import org.jboss.logging.Logger;
 
 import de.shop.artikelverwaltung.domain.Artikel;
+import de.shop.util.persistence.AbstractAuditable;
 
 @Entity
 @Table(indexes =  {
@@ -35,7 +37,7 @@ import de.shop.artikelverwaltung.domain.Artikel;
 	   	            	    + " FROM   Artikel a"
 	   	            	    + " WHERE  a NOT IN (SELECT bp.artikel FROM Bestellposition bp)")
 	})
-public class Bestellposition implements Serializable {
+public class Bestellposition extends AbstractAuditable {
 	private static final long serialVersionUID = 892583057771741519L;
 	private static final Logger LOGGER = Logger.getLogger(MethodHandles.lookup().lookupClass());
 	
