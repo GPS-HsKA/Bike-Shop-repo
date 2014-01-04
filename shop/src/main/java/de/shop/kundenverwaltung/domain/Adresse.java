@@ -21,12 +21,14 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import org.jboss.logging.Logger;
+
+import de.shop.util.persistence.AbstractAuditable;
 //TODO schreib die Klasse!
 //import de.shop.util.persistence.AbstractAuditable;
 
 @Entity
 @Table(indexes = @Index(columnList = "plz"))   // Zu kunde_fk wird unten ein UNIQUE Index definiert
-public class Adresse implements Serializable {
+public class Adresse extends AbstractAuditable {
 	private static final long serialVersionUID = -3029272617931844501L;
 	private static final Logger LOGGER = Logger.getLogger(MethodHandles.lookup().lookupClass());
 	
