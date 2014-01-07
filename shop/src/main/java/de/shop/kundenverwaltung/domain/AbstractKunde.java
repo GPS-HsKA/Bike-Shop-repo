@@ -78,7 +78,7 @@ import de.shop.util.persistence.AbstractAuditable;
 @Table(name = "kunde", indexes = @Index(columnList = "nachname"))
 @Inheritance
 @DiscriminatorColumn(name = "art", length = 1)
-//TODO NamedQuesries machen!
+
 @NamedQueries({
 	@NamedQuery(name  = AbstractKunde.FIND_KUNDEN,
                 query = "SELECT k"
