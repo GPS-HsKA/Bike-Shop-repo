@@ -363,8 +363,8 @@ public abstract class AbstractKunde extends AbstractAuditable {
 			this.bestellungen = bestellungen;
 			return;
 		}
+	
 		
-		// Wiederverwendung der vorhandenen Collection
 		this.bestellungen.clear();
 		if (bestellungen != null) {
 			this.bestellungen.addAll(bestellungen);
