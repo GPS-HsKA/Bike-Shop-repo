@@ -51,7 +51,7 @@ public class ArtikelService implements Serializable {
 	 * @return Der gefundene Artikel, null sonst.
 	 * @exception ConstraintViolationException zu @NotNull, falls kein Artikel gefunden wurde
 	 */
-	@NotNull(message = "{artikel.notFound.id}")
+	@NotNull(message = "{artikelverwaltung.artikel.notFound.id}")
 	public Artikel findArtikelById(Long id) {
 		return em.find(Artikel.class, id);
 	}
