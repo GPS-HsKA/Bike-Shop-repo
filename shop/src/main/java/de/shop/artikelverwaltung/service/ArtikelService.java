@@ -62,7 +62,7 @@ public class ArtikelService implements Serializable {
 	 * @return Liste der gefundenen Artikel
 	 * @exception ConstraintViolationException zu @Size, falls die Liste leer ist
 	 */
-	@Size(min = 1, message = "{artikel.notFound.ids}")
+	@Size(min = 1, message = "{artikelvferwaltung.artikel.notFound.ids}")
 	public List<Artikel> findArtikelByIds(List<Long> ids) {
 		if (ids == null || ids.isEmpty()) {
 			return Collections.emptyList();
@@ -109,7 +109,7 @@ public class ArtikelService implements Serializable {
 	 * @return Liste der gefundenen Artikel
 	 * @exception ConstraintViolationException zu @Size, falls die Liste leer ist
 	 */
-	@Size(min = 1, message = "{artikel.notFound.bezeichnung}")
+	@Size(min = 1, message = "{artikelverwaltung.artikel.notFound.bezeichnung}")
 	public List<Artikel> findArtikelByBezeichnung(String bezeichnung) {
 		if (Strings.isNullOrEmpty(bezeichnung)) {
 			return findVerfuegbareArtikel();
@@ -126,7 +126,7 @@ public class ArtikelService implements Serializable {
 	 * @return Liste der Artikel mit einem geringeren Preis als die angegebene Obergrenze
 	 * @exception ConstraintViolationException zu @Size, falls die Liste leer ist
 	 */
-	@Size(min = 1, message = "{kunde.notFound.maxPreis}")
+	@Size(min = 1, message = "{artikelverwaltung.artikel.notFound.maxPreis}")
 	public List<Artikel> findArtikelByMaxPreis(BigDecimal preis) {
 		return em.createNamedQuery(Artikel.FIND_ARTIKEL_MAX_PREIS, Artikel.class)
 				 .setParameter(Artikel.PARAM_PREIS, preis)

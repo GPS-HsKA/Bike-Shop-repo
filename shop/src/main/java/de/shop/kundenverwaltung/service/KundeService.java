@@ -168,14 +168,14 @@ public class KundeService implements Serializable {
 				 .getResultList();
 	}
 	
-	@Size(min = 1, message = "{kunde.notFound.plz}")
+	@Size(min = 1, message = "{kundenverwaltung.kunde.notFound.plz}")
 	public List<AbstractKunde> findKundenByPLZ(String plz) {
 		return em.createNamedQuery(AbstractKunde.FIND_KUNDEN_BY_PLZ, AbstractKunde.class)
                  .setParameter(AbstractKunde.PARAM_KUNDE_ADRESSE_PLZ, plz)
                  .getResultList();
 	}
 	
-	@Size(min = 1, message = "{kunde.notFound.seit}")
+	@Size(min = 1, message = "{kundenverwaltung.kunde.notFound.seit}")
 	public List<AbstractKunde> findKundenBySeit(Date seit) {
 		return em.createNamedQuery(AbstractKunde.FIND_KUNDEN_BY_DATE, AbstractKunde.class)
                  .setParameter(AbstractKunde.PARAM_KUNDE_SEIT, seit)
@@ -187,7 +187,7 @@ public class KundeService implements Serializable {
                  .getResultList();
 	}
 	
-	@Size(min = 1, message = "{kunde.notFound.nachname}")
+	@Size(min = 1, message = "{kundenverwaltung.kunde.notFound.nachname}")
 	public List<AbstractKunde> findKundenByNachnameCriteria(String nachname) {
 		final CriteriaBuilder builder = em.getCriteriaBuilder();
 		final CriteriaQuery<AbstractKunde> criteriaQuery = builder.createQuery(AbstractKunde.class);
@@ -204,7 +204,7 @@ public class KundeService implements Serializable {
 		return em.createQuery(criteriaQuery).getResultList();
 	}
 	
-	@Size(min = 1, message = "{kunde.notFound.minBestMenge}")
+	@Size(min = 1, message = "{kundenverwaltung.kunde.notFound.minBestMenge}")
 	public List<AbstractKunde> findKundenMitMinBestMenge(short minMenge) {
 		final CriteriaBuilder builder = em.getCriteriaBuilder();
 		final CriteriaQuery<AbstractKunde> criteriaQuery  = builder.createQuery(AbstractKunde.class);
@@ -219,7 +219,7 @@ public class KundeService implements Serializable {
 		         .getResultList();
 	}
 	
-	@NotNull(message = "{kunde.notFound.criteria}")
+	@NotNull(message = "{kundenverwaltung.kunde.notFound.criteria}")
 	public List<AbstractKunde> findKundenByCriteria(String email, String nachname, String plz, Date seit,
 			                                        Short minBestMenge) {
 		// SELECT DISTINCT k

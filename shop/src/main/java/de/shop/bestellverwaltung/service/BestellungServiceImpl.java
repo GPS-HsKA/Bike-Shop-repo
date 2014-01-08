@@ -62,7 +62,7 @@ public class BestellungServiceImpl implements BestellungService, Serializable{
 	private transient Event<Bestellung> event;
 	
 	@Override
-	@NotNull(message = "{bestellung.kunde.notFound.id}")
+	@NotNull(message = "{bestellverwaltung.bestellung.kunde.notFound.id}")
 	public AbstractKunde findKundeById(Long id) {
 		try {
 			return em.createNamedQuery(Bestellung.FIND_KUNDE_BY_ID, AbstractKunde.class)
@@ -75,7 +75,7 @@ public class BestellungServiceImpl implements BestellungService, Serializable{
 	}
 	
 	@Override
-	@NotNull(message = "{bestellung.notFound.id}")
+	@NotNull(message = "{bestellverwaltung.bestellung.notFound.id}")
 	public Bestellung findBestellungById(Long id, FetchType fetch) {
 		if (id == null) {
 			return null;
@@ -108,7 +108,7 @@ public class BestellungServiceImpl implements BestellungService, Serializable{
 	 * @exception ConstraintViolationException zu @Size, falls die Liste leer ist
 	 */
 	@Override
-	@Size(min = 1, message = "{bestellung.notFound.kunde}")
+	@Size(min = 1, message = "{bestellverwaltung.bestellung.notFound.kunde}")
 	public List<Bestellung> findBestellungenByKunde(AbstractKunde kunde) {
 		if (kunde == null) {
 			return Collections.emptyList();
@@ -124,7 +124,7 @@ public class BestellungServiceImpl implements BestellungService, Serializable{
 	 * @exception ConstraintViolationException zu @Size, falls die Liste leer ist
 	 */
 	@Override
-	@Size(min = 1, message = "{bestellung.notFound.ids}")
+	@Size(min = 1, message = "{bestellverwaltung.bestellung.notFound.ids}")
 	public List<Bestellung> findBestellungenByIds(List<Long> ids, FetchType fetch) {
 		if (ids == null || ids.isEmpty()) {
 			return Collections.emptyList();
