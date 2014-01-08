@@ -21,6 +21,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.jboss.logging.Logger;
 
+import de.shop.kundenverwaltung.domain.AbstractKunde;
 import de.shop.util.persistence.AbstractAuditable;
 
 
@@ -124,6 +125,12 @@ public class Artikel extends AbstractAuditable {
 
 	public void setAusgesondert(boolean ausgesondert) {
 		this.ausgesondert = ausgesondert;
+	}
+	
+	public void setValues(Artikel a) {
+		bezeichnung = a.bezeichnung;
+		preis = a.preis;
+		ausgesondert = a.ausgesondert;
 	}
 	
 	@Override

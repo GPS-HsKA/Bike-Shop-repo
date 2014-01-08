@@ -142,4 +142,17 @@ public class ArtikelService implements Serializable {
 		em.persist(artikel);
 		return artikel;		
 	}
+	
+	// Artikel updaten
+	public <T extends Artikel> T updateArtikel(T artikel) {
+		if (artikel == null) {
+			return null;
+		}
+		
+		//FIXME unnoetig bei Artikel?
+		em.detach(artikel);
+
+		em.merge(artikel);
+		return artikel;
+	}
 }

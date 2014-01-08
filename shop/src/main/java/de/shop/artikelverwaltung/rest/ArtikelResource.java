@@ -16,6 +16,7 @@ import javax.validation.Valid;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -28,6 +29,7 @@ import de.shop.artikelverwaltung.domain.Artikel;
 import de.shop.artikelverwaltung.service.ArtikelService;
 import de.shop.kundenverwaltung.domain.AbstractKunde;
 import de.shop.kundenverwaltung.domain.Adresse;
+import de.shop.kundenverwaltung.service.KundeService.FetchType;
 import de.shop.util.interceptor.Log;
 import de.shop.util.rest.UriHelper;
 
@@ -87,5 +89,21 @@ public class ArtikelResource {
 		
 		return Response.created(getUriArtikel(artikel, uriInfo))
 				       .build();
+	}
+	
+	@PUT
+	@Consumes({ APPLICATION_JSON, APPLICATION_XML, TEXT_XML })
+	@Produces
+	public void updateArtikel(@Valid Artikel artikel) {
+		// Vorhandenen Artikel ermitteln
+		final Artikel origArtikel = as.findArtikelById(artikel.getId());
+		LOGGER.tracef("Artikel vorher: %s", origArtikel);
+	
+		// Daten des vorhandenen Kunden ueberschreiben
+		origArtikel.setValues(artikel);
+		LOGGER.tracef("Artikel nachher: %s", origArtikel);
+		
+		// Update durchfuehren
+		as.updateArtikel(origArtikel);
 	}
 }
