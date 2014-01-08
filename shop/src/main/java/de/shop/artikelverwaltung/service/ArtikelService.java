@@ -19,6 +19,8 @@ import javax.validation.constraints.Size;
 import com.google.common.base.Strings;
 
 import de.shop.artikelverwaltung.domain.Artikel;
+import de.shop.kundenverwaltung.domain.AbstractKunde;
+import de.shop.kundenverwaltung.service.EmailExistsException;
 import de.shop.util.interceptor.Log;
 
 
@@ -129,5 +131,15 @@ public class ArtikelService implements Serializable {
 		return em.createNamedQuery(Artikel.FIND_ARTIKEL_MAX_PREIS, Artikel.class)
 				 .setParameter(Artikel.PARAM_PREIS, preis)
 				 .getResultList();
+	}
+	
+	// Neuen Artikel anlegen
+	public <T extends Artikel> T createArtikel(T artikel) {
+		if (artikel == null) {
+			return artikel;
+		}
+		
+		em.persist(artikel);
+		return artikel;		
 	}
 }
