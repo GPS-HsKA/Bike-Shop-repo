@@ -148,9 +148,6 @@ public class ArtikelService implements Serializable {
 		if (artikel == null) {
 			return null;
 		}
-		
-		//FIXME unnoetig bei Artikel?
-		em.detach(artikel);
 
 		em.merge(artikel);
 		return artikel;
