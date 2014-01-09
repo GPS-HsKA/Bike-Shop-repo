@@ -36,6 +36,9 @@
 			
 			<!-- Keine proprietaeren Erweiterungen von HQL nutzen -->
 			<property name="hibernate.query.jpaql_strict_compliance" value="true"/>
+			<!--
+			<property name="hibernate.id.new_generator_mappings" value="true"/>
+			-->
 
 			<!-- SQL-Anweisungen lesbar protokollieren -->
 			<property name="hibernate.format_sql" value="true"/>
