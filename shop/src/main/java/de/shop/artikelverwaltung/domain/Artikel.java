@@ -21,14 +21,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.jboss.logging.Logger;
 
+import de.shop.kundenverwaltung.domain.AbstractKunde;
 import de.shop.util.persistence.AbstractAuditable;
+
 
 @XmlRootElement
 @Entity
 @Table(indexes = @Index(columnList = "bezeichnung"))
-
-//NamedQueries
-
 @NamedQueries({
 	@NamedQuery(name  = Artikel.FIND_VERFUEGBARE_ARTIKEL,
             	query = "SELECT      a"
@@ -47,9 +46,11 @@ import de.shop.util.persistence.AbstractAuditable;
 						+ " WHERE    a.preis < :" + Artikel.PARAM_PREIS
 			 	        + " ORDER BY a.id ASC")
 })
-
 public class Artikel extends AbstractAuditable {
 
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = -7595241091410918682L;
 
 	private static final Logger LOGGER = Logger.getLogger(MethodHandles.lookup().lookupClass());
@@ -69,11 +70,13 @@ public class Artikel extends AbstractAuditable {
 	@Basic(optional = false)
 	private Long id = KEINE_ID;
 	
-	@NotNull(message = "{artikel.bezeichnung.notNull}")
-	@Size(max = BEZEICHNUNG_LENGTH_MAX, message = "{artikel.bezeichnung.length}")
+	@NotNull(message = "{artikelverwaltung.artikel.bezeichnung.notNull}")
+	@Size(max = BEZEICHNUNG_LENGTH_MAX, message = "{artikelverwaltung.artikel.bezeichnung.length}")
 	private String bezeichnung = "";
 	
-	@Digits(integer = 10, fraction = 2, message = "{artikel.preis.digits}")
+	//@Digits legt fest wieviele integer-Zeichen erlaubt sind und wieviele Stellen nach dem Komma (fraction)
+	
+	@Digits(integer = 10, fraction = 2, message = "{artikelverwaltung.artikel.preis.digits}")
 	private BigDecimal preis;
 	
 	@Basic(optional = false)

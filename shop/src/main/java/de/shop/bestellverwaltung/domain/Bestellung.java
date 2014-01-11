@@ -53,10 +53,7 @@ import de.shop.util.persistence.AbstractAuditable;
                         + " FROM   Bestellung b"
   			            + " WHERE  b.id = :" + Bestellung.PARAM_ID)
 })
-//@NamedEntityGraphs({
-//	@NamedEntityGraph(name = Bestellung.GRAPH_LIEFERUNGEN,
-//					  attributeNodes = @NamedAttributeNode("lieferungen"))
-//})
+
 public class Bestellung extends AbstractAuditable {
 	private static final long serialVersionUID = 1618359234119003714L;
 	private static final Logger LOGGER = Logger.getLogger(MethodHandles.lookup().lookupClass());
@@ -85,7 +82,7 @@ public class Bestellung extends AbstractAuditable {
 	
 	@OneToMany(fetch = EAGER, cascade = { PERSIST, REMOVE })
 	@JoinColumn(name = "bestellung_fk", nullable = false)
-	@NotEmpty(message = "{bestellung.bestellpositionen.notEmpty}")
+	@NotEmpty(message = "{bestellverwaltung.bestellung.bestellpositionen.notEmpty}")
 	@Valid
 	private Set<Bestellposition> bestellpositionen;
 	

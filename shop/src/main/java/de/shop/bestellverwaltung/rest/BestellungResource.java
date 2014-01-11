@@ -43,10 +43,6 @@ import de.shop.kundenverwaltung.rest.KundeResource;
 import de.shop.util.interceptor.Log;
 import de.shop.util.rest.UriHelper;
 
-
-/**
- * @author <a href="mailto:Juergen.Zimmermann@HS-Karlsruhe.de">J&uuml;rgen Zimmermann</a>
- */
 @Path("/bestellungen")
 @Produces({APPLICATION_JSON, APPLICATION_XML + ";qs=0.75", TEXT_XML + ";qs=0.5" })
 @Consumes
@@ -130,29 +126,7 @@ public class BestellungResource {
 	 * @param id ID der Bestellung
 	 * @return Objekt mit Lieferdaten, falls die ID vorhanden ist
 	 */
-	@GET
-	@Path("{id:[1-9][0-9]*}/lieferungen")
-	public Response findLieferungenByBestellungId(@PathParam("id") Long id) {
-		// Diese Methode ist bewusst NICHT implementiert, um zu zeigen,
-		// wie man Methodensignaturen an der Schnittstelle fuer andere
-		// Teammitglieder schon mal bereitstellt, indem einfach ein "Internal
-		// Server Error (500)" produziert wird.
-		// Die Kolleg/inn/en koennen nun weiterarbeiten, waehrend man selbst
-		// gerade keine Zeit hat, weil andere Aufgaben Vorrang haben.
-		
-		// TODO findLieferungenByBestellungId noch nicht implementiert
-		return Response.status(INTERNAL_SERVER_ERROR)
-			       .entity("findLieferungenByBestellungId: NOT YET IMPLEMENTED")
-			       .type(TEXT_PLAIN)
-			       .build();
-	}
 
-	
-	/**
-	 * Mit der URL /bestellungen/{id}/kunde den Kunden einer Bestellung ermitteln
-	 * @param id ID der Bestellung
-	 * @return Objekt mit Kundendaten, falls die ID vorhanden ist
-	 */
 	@GET
 	@Path("{id:[1-9][0-9]*}/kunde")
 	public Response findKundeByBestellungId(@PathParam("id") Long id) {
@@ -259,7 +233,7 @@ public class BestellungResource {
 	 *          eine gueltige Zahl war.
 	 * @return null
 	 */
-	@NotNull(message = "{bestellung.artikelIds.invalid}")
+	@NotNull(message = "{bestellverwaltung.bestellung.artikelIds.invalid}")
 	public List<Long> artikelIdsInvalid() {
 		return null;
 	}
@@ -268,7 +242,7 @@ public class BestellungResource {
 	 * @NotNull verletzen, um die entsprechende Meldung zu verursachen, weil die Kunde-Id ungueltig ist.
 	 * @return null
 	 */
-	@NotNull(message = "{bestellung.kunde.id.invalid}")
+	@NotNull(message = "{bestellverwaltung.bestellung.kunde.id.invalid}")
 	public Long kundeIdInvalid() {
 		return null;
 	}
