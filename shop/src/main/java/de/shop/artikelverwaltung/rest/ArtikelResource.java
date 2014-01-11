@@ -27,9 +27,6 @@ import javax.ws.rs.core.UriInfo;
 
 import de.shop.artikelverwaltung.domain.Artikel;
 import de.shop.artikelverwaltung.service.ArtikelService;
-import de.shop.kundenverwaltung.domain.AbstractKunde;
-import de.shop.kundenverwaltung.domain.Adresse;
-import de.shop.kundenverwaltung.service.KundeService.FetchType;
 import de.shop.util.interceptor.Log;
 import de.shop.util.rest.UriHelper;
 
@@ -70,7 +67,7 @@ public class ArtikelResource {
                               .rel(SELF_LINK)
                               .build();
 
-		return new Link[] { self };
+		return new Link[] {self};
 	}
 	
 	public URI getUriArtikel(Artikel artikel, UriInfo uriInfo) {

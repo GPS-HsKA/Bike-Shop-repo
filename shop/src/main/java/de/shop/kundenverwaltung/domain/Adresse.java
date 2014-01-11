@@ -2,7 +2,6 @@ package de.shop.kundenverwaltung.domain;
 
 import static de.shop.util.Constants.KEINE_ID;
 
-import java.io.Serializable;
 import java.lang.invoke.MethodHandles;
 
 import javax.persistence.Basic;

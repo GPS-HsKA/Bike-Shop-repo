@@ -8,11 +8,8 @@ import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
 import javax.enterprise.context.Dependent;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
@@ -42,7 +39,7 @@ import de.shop.util.interceptor.Log;
 
 @Dependent
 @Log
-public class BestellungServiceImpl implements BestellungService, Serializable{
+public class BestellungServiceImpl implements BestellungService, Serializable {
 
 	/**
 	 * 

@@ -5,7 +5,6 @@ import static javax.persistence.CascadeType.PERSIST;
 import static javax.persistence.CascadeType.REMOVE;
 import static javax.persistence.TemporalType.DATE;
 
-import java.io.Serializable;
 import java.lang.invoke.MethodHandles;
 import java.math.BigDecimal;
 import java.net.URI;
@@ -46,7 +45,6 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-import javax.validation.groups.Default;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlTransient;
@@ -121,7 +119,7 @@ import de.shop.util.persistence.AbstractAuditable;
 
 @NamedEntityGraphs({
 	@NamedEntityGraph(name = AbstractKunde.GRAPH_BESTELLUNGEN,
-					  attributeNodes = @NamedAttributeNode("bestellungen")),
+					  attributeNodes = @NamedAttributeNode("bestellungen"))
 //	@NamedEntityGraph(name = AbstractKunde.GRAPH_WARTUNGSVERTRAEGE,
 //					  attributeNodes = @NamedAttributeNode("wartungsvertraege"))
 })

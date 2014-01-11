@@ -12,7 +12,6 @@ import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 import static javax.ws.rs.core.MediaType.APPLICATION_XML;
 import static javax.ws.rs.core.MediaType.TEXT_PLAIN;
 import static javax.ws.rs.core.MediaType.TEXT_XML;
-import static javax.ws.rs.core.Response.Status.INTERNAL_SERVER_ERROR;
 
 import java.lang.invoke.MethodHandles;
 import java.net.URI;
@@ -181,7 +180,7 @@ public class KundeResource {
 			// FIXME JDK 8 hat Lambda-Ausdruecke
 			//kunden.parallelStream()
 			//      .forEach(k -> setStructuralLinks(k, uriInfo));
-			entity = new GenericEntity<List<? extends AbstractKunde>>(kunden){};
+			entity = new GenericEntity<List<? extends AbstractKunde>>(kunden){ };
 			links = getTransitionalLinksKunden(kunden, uriInfo);
 		}
 		else if (kunde != null) {
@@ -241,7 +240,7 @@ public class KundeResource {
 			//            .forEach(b -> bestellungResource.setStructuralLinks(b, uriInfo));
 		}
 		
-		final Response response = Response.ok(new GenericEntity<List<Bestellung>>(bestellungen) {})
+		final Response response = Response.ok(new GenericEntity<List<Bestellung>>(bestellungen) { })
                                           .links(getTransitionalLinksBestellungen(bestellungen, kunde, uriInfo))
                                           .build();
 		return response;
@@ -286,7 +285,7 @@ public class KundeResource {
 		//            .map(Bestellung::getId)
 		//            .forEach(id -> bestellungenIds.add(id));
 		
-		return Response.ok(new GenericEntity<Collection<Long>>(bestellungenIds) {})
+		return Response.ok(new GenericEntity<Collection<Long>>(bestellungenIds) { })
 				       .build();
 	}
 

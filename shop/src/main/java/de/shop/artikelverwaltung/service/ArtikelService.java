@@ -19,8 +19,6 @@ import javax.validation.constraints.Size;
 import com.google.common.base.Strings;
 
 import de.shop.artikelverwaltung.domain.Artikel;
-import de.shop.kundenverwaltung.domain.AbstractKunde;
-import de.shop.kundenverwaltung.service.EmailExistsException;
 import de.shop.util.interceptor.Log;
 
 
@@ -28,17 +26,11 @@ import de.shop.util.interceptor.Log;
 @Log
 public class ArtikelService implements Serializable {
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 7546078942000464115L;
 	@Inject
 	private transient EntityManager em;
 	
-	/**
-	 * Suche nach verfuegbaren Artikeln.
-	 * @return Liste der verfuegbaren Artikel.
-	 */
+	
 	public List<Artikel> findVerfuegbareArtikel() {
 		return em.createNamedQuery(Artikel.FIND_VERFUEGBARE_ARTIKEL, Artikel.class)
 				 .getResultList();
@@ -140,7 +132,8 @@ public class ArtikelService implements Serializable {
 		}
 		
 		em.persist(artikel);
-		return artikel;		
+		System.out.println("Artikel wurde erfolgreich angelgt");
+		return artikel;
 	}
 	
 	// Artikel updaten

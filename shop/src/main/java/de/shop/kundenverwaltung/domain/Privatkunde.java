@@ -1,19 +1,10 @@
 package de.shop.kundenverwaltung.domain;
 
 import static de.shop.kundenverwaltung.domain.AbstractKunde.PRIVATKUNDE;
-import static javax.persistence.FetchType.EAGER;
-
-import java.util.Set;
 
 import javax.persistence.Cacheable;
-import javax.persistence.CollectionTable;
-import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.persistence.Index;
-import javax.persistence.JoinColumn;
-import javax.persistence.UniqueConstraint;
 import javax.xml.bind.annotation.XmlRootElement;
 
 
