@@ -69,11 +69,13 @@ public class Artikel extends AbstractAuditable {
 	@Basic(optional = false)
 	private Long id = KEINE_ID;
 	
-	@NotNull(message = "{artikel.bezeichnung.notNull}")
-	@Size(max = BEZEICHNUNG_LENGTH_MAX, message = "{artikel.bezeichnung.length}")
+	@NotNull(message = "{artikelverwaltung.artikel.bezeichnung.notNull}")
+	@Size(max = BEZEICHNUNG_LENGTH_MAX, message = "{artikelverwaltung.artikel.bezeichnung.length}")
 	private String bezeichnung = "";
 	
-	@Digits(integer = 10, fraction = 2, message = "{artikel.preis.digits}")
+	//@Digits legt fest wieviele integer-Zeichen erlaubt sind und wieviele Stellen nach dem Komma (fraction)
+	
+	@Digits(integer = 10, fraction = 2, message = "{artikelverwaltung.artikel.preis.digits}")
 	private BigDecimal preis;
 	
 	@Basic(optional = false)
