@@ -120,8 +120,6 @@ import de.shop.util.persistence.AbstractAuditable;
 @NamedEntityGraphs({
 	@NamedEntityGraph(name = AbstractKunde.GRAPH_BESTELLUNGEN,
 					  attributeNodes = @NamedAttributeNode("bestellungen"))
-//	@NamedEntityGraph(name = AbstractKunde.GRAPH_WARTUNGSVERTRAEGE,
-//					  attributeNodes = @NamedAttributeNode("wartungsvertraege"))
 })
 public abstract class AbstractKunde extends AbstractAuditable {
 	private static final long serialVersionUID = 7401524595142572933L;
@@ -214,13 +212,6 @@ public abstract class AbstractKunde extends AbstractAuditable {
 	@OrderColumn(name = "idx", nullable = false)
 	@XmlTransient
 	private List<Bestellung> bestellungen;
-
-//TODO Eventuell Wartungsvertrag schreiben
-//	@OneToMany
-//	@JoinColumn(name = "kunde_fk", nullable = false)
-//	@OrderColumn(name = "idx", nullable = false)
-//	@XmlTransient
-//	private List<Wartungsvertrag> wartungsvertraege;
 	
 	@Transient
 	private URI bestellungenUri;
@@ -383,35 +374,6 @@ public abstract class AbstractKunde extends AbstractAuditable {
 	public void setBestellungenUri(URI bestellungenUri) {
 		this.bestellungenUri = bestellungenUri;
 	}
-//TODO eventuel Wartungsvertrag schreiben	
-//	public List<Wartungsvertrag> getWartungsvertraege() {
-//		if (wartungsvertraege == null) {
-//			return null;
-//		}
-//		
-//		return Collections.unmodifiableList(wartungsvertraege);
-//	}
-//
-//	public void setWartungsvertraege(List<Wartungsvertrag> wartungsvertraege) {
-//		if (this.wartungsvertraege == null) {
-//			this.wartungsvertraege = wartungsvertraege;
-//			return;
-//		}
-//		
-//		// Wiederverwendung der vorhandenen Collection
-//		this.wartungsvertraege.clear();
-//		if (wartungsvertraege != null) {
-//			this.wartungsvertraege.addAll(wartungsvertraege);
-//		}
-//	}
-//	
-//	public AbstractKunde addWartungsvertrag(Wartungsvertrag wartungsvertrag) {
-//		if (wartungsvertraege == null) {
-//			wartungsvertraege = new ArrayList<>();
-//		}
-//		wartungsvertraege.add(wartungsvertrag);
-//		return this;
-//	}
 	
 	@Override
 	public String toString() {

@@ -73,13 +73,7 @@ public class KundeService implements Serializable {
 				props = ImmutableMap.of(LOADGRAPH, (Object) entityGraph);
 				kunde = em.find(AbstractKunde.class, id, props);
 				break;
-//TODO Wartungsvertraege machen				
-//			case MIT_WARTUNGSVERTRAEGEN:
-//				entityGraph = em.getEntityGraph(AbstractKunde.GRAPH_WARTUNGSVERTRAEGE);
-//				props = ImmutableMap.of(LOADGRAPH, (Object) entityGraph);
-//				kunde = em.find(AbstractKunde.class, id, props);
-//				break;
-
+				
 			default:
 				kunde = em.find(AbstractKunde.class, id);
 				break;
@@ -121,11 +115,6 @@ public class KundeService implements Serializable {
 				entityGraph = em.getEntityGraph(AbstractKunde.GRAPH_BESTELLUNGEN);
 				query.setHint(LOADGRAPH, entityGraph);
 				break;
-				
-//			case MIT_WARTUNGSVERTRAEGEN:
-//				entityGraph = em.getEntityGraph(AbstractKunde.GRAPH_WARTUNGSVERTRAEGE);
-//				query.setHint(LOADGRAPH, entityGraph);
-//				break;
 
 			default:
 				break;
@@ -149,11 +138,6 @@ public class KundeService implements Serializable {
 				entityGraph = em.getEntityGraph(AbstractKunde.GRAPH_BESTELLUNGEN);
 				query.setHint(LOADGRAPH, entityGraph);
 				break;
-				
-//			case MIT_WARTUNGSVERTRAEGEN:
-//				entityGraph = em.getEntityGraph(AbstractKunde.GRAPH_WARTUNGSVERTRAEGE);
-//				query.setHint(LOADGRAPH, entityGraph);
-//				break;
 				
 			default:
 				break;
@@ -320,24 +304,4 @@ public class KundeService implements Serializable {
 		em.merge(kunde);
 		return kunde;
 	}
-//TODO Wartungsvertaege schreiben	
-//	@Size(min = 1, message = "{wartungsvertrag.notFound.kundeId}")
-//	public List<Wartungsvertrag> findWartungsvertraege(Long kundeId) {
-//		return em.createNamedQuery(Wartungsvertrag.FIND_WARTUNGSVERTRAEGE_BY_KUNDE_ID, Wartungsvertrag.class)
-//                 .setParameter(Wartungsvertrag.PARAM_KUNDE_ID, kundeId)
-//                 .getResultList();
-//	}
-//	
-//	public Wartungsvertrag createWartungsvertrag(Wartungsvertrag wartungsvertrag, AbstractKunde kunde) {
-//		if (wartungsvertrag == null || kunde == null) {
-//			return null;
-//		}
-//		
-//		kunde = findKundeById(kunde.getId(), FetchType.NUR_KUNDE);
-//		wartungsvertrag.setKunde(kunde);
-//		kunde.addWartungsvertrag(wartungsvertrag);
-//		
-//		em.persist(wartungsvertrag);
-//		return wartungsvertrag;
-//	}
 }
