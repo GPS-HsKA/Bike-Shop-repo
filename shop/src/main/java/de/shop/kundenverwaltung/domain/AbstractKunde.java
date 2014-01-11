@@ -169,31 +169,31 @@ public abstract class AbstractKunde extends AbstractAuditable {
 	@Basic(optional = false)
 	private Long id = KEINE_ID;
 	
-	@NotNull(message = "{kunde.nachname.notNull}")
-	@Size(min = NACHNAME_LENGTH_MIN, max = NACHNAME_LENGTH_MAX, message = "{kunde.nachname.length}")
+	@NotNull(message = "{kundenverwaltung.kunde.nachname.notNull}")
+	@Size(min = NACHNAME_LENGTH_MIN, max = NACHNAME_LENGTH_MAX, message = "{kundenverwaltung.kunde.nachname.length}")
 	@Pattern(regexp = NACHNAME_PATTERN, message = "{kundenverwaltung.kunde.nachname.pattern}")
 	private String nachname;
 	
-	@Size(max = VORNAME_LENGTH_MAX, message = "{kunde.vorname.length}")
+	@Size(max = VORNAME_LENGTH_MAX, message = "{kundenverwaltung.kunde.vorname.length}")
 	private String vorname;
 	
-	@Email(message = "{kunde.email.pattern}")
-	@NotNull(message = "{kunde.email.notNull}")
-	@Size(max = EMAIL_LENGTH_MAX, message = "{kunde.email.length}")
+	@Email(message = "{kundenverwaltung.kunde.email.pattern}")
+	@NotNull(message = "{kundenverwaltung.kunde.email.notNull}")
+	@Size(max = EMAIL_LENGTH_MAX, message = "{kundenverwaltung.kunde.email.length}")
 	@Column(unique = true)
 	private String email;
 	
-	@DecimalMax(value = RABATT_MAX, message = "{kunde.rabatt.max}")
-	@Digits(integer = 1, fraction = 4, message = "{kunde.rabatt.digits}")
+	@DecimalMax(value = RABATT_MAX, message = "{kundenverwaltung.kunde.rabatt.max}")
+	@Digits(integer = 1, fraction = 4, message = "{kundenverwaltung.kunde.rabatt.digits}")
 	private BigDecimal rabatt = BigDecimal.ZERO;
 	
-	@Digits(integer = 10, fraction = 2, message = "{kunde.umsatz.digits}")
+	@Digits(integer = 10, fraction = 2, message = "{kundenverwaltung.kunde.umsatz.digits}")
 	private BigDecimal umsatz = BigDecimal.ZERO;
 	
 	@Basic(optional = false)
 	private boolean newsletter = false;
 	
-	@Size(max = PASSWORD_LENGTH_MAX, message = "{kunde.password.length}")
+	@Size(max = PASSWORD_LENGTH_MAX, message = "{kundenverwaltung.kunde.password.length}")
 	private String password;
 	
 	@Transient
@@ -201,11 +201,11 @@ public abstract class AbstractKunde extends AbstractAuditable {
 	
 	@OneToOne(cascade = { PERSIST, REMOVE }, mappedBy = "kunde")
 	@Valid
-	@NotNull(message = "{kunde.adresse.notNull}")
+	@NotNull(message = "{kundenverwaltung.kunde.adresse.notNull}")
 	private Adresse adresse;
 	
 	@Temporal(DATE)
-	@Past(message = "{kunde.seit.past}")
+	@Past(message = "{kundenverwaltung.kunde.seit.past}")
 	private Date seit;
 	
 	// Default: fetch=LAZY
