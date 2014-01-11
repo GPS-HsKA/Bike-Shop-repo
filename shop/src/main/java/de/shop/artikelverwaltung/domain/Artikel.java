@@ -44,7 +44,12 @@ import de.shop.util.persistence.AbstractAuditable;
             	query = "SELECT      a"
                         + " FROM     Artikel a"
 						+ " WHERE    a.preis < :" + Artikel.PARAM_PREIS
-			 	        + " ORDER BY a.id ASC")
+			 	        + " ORDER BY a.id ASC"),
+	@NamedQuery(name  = Artikel.FIND_BEZEICHNUNG_BY_PREFIX,
+       query = "SELECT   DISTINCT a.bezeichnung"
+	        + " FROM  Artikel a "
+    		+ " WHERE UPPER(a.bezeichnung) LIKE UPPER(:"
+    		+ Artikel.PARAM_ARTIKEL_BEZEICHNUNG_PREFIX + ")")
 })
 public class Artikel extends AbstractAuditable {
 
@@ -61,9 +66,11 @@ public class Artikel extends AbstractAuditable {
 	public static final String FIND_VERFUEGBARE_ARTIKEL = PREFIX + "findVerfuegbareArtikel";
 	public static final String FIND_ARTIKEL_BY_BEZ = PREFIX + "findArtikelByBez";
 	public static final String FIND_ARTIKEL_MAX_PREIS = PREFIX + "findArtikelByMaxPreis";
+	public static final String FIND_BEZEICHNUNG_BY_PREFIX = PREFIX + "findArtikelByBezeichnung";
 
 	public static final String PARAM_BEZEICHNUNG = "bezeichnung";
 	public static final String PARAM_PREIS = "preis";
+	public static final String PARAM_ARTIKEL_BEZEICHNUNG_PREFIX = "bezeichnung";
 
 	@Id
 	@GeneratedValue

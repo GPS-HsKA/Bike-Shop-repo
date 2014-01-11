@@ -4,10 +4,12 @@ import static de.shop.util.Constants.KEINE_ID;
 import static de.shop.util.Constants.SELF_LINK;
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 import static javax.ws.rs.core.MediaType.APPLICATION_XML;
+import static javax.ws.rs.core.MediaType.TEXT_PLAIN;
 import static javax.ws.rs.core.MediaType.TEXT_XML;
 
 import java.lang.invoke.MethodHandles;
 import java.net.URI;
+import java.util.Collection;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -72,6 +74,14 @@ public class ArtikelResource {
 	
 	public URI getUriArtikel(Artikel artikel, UriInfo uriInfo) {
 		return uriHelper.getUri(ArtikelResource.class, "findArtikelById", artikel.getId(), uriInfo);
+	}
+	
+	@GET
+	@Path("/prefix/bezeichnung/{bezeichnung}")
+	@Produces({ APPLICATION_JSON, TEXT_PLAIN + ";qs=0.75" })
+	public Collection<String> findBezeichnungByPrefix(@PathParam("bezeichnung") String bezeichnungPrefix) {
+		final Collection<String> bezeichnung = as.findBezeichnungByPrefix(bezeichnungPrefix);
+		return bezeichnung;
 	}
 	
 	@POST
