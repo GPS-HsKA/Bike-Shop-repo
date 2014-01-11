@@ -54,7 +54,7 @@ public class ArtikelService implements Serializable {
 	 * @return Liste der gefundenen Artikel
 	 * @exception ConstraintViolationException zu @Size, falls die Liste leer ist
 	 */
-	@Size(min = 1, message = "{artikelvferwaltung.artikel.notFound.ids}")
+	@Size(min = 1, message = "{artikelverwaltung.artikel.notFound.ids}")
 	public List<Artikel> findArtikelByIds(List<Long> ids) {
 		if (ids == null || ids.isEmpty()) {
 			return Collections.emptyList();

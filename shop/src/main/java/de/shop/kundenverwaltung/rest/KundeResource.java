@@ -288,24 +288,6 @@ public class KundeResource {
 		return Response.ok(new GenericEntity<Collection<Long>>(bestellungenIds) { })
 				       .build();
 	}
-
-//TODO Wartungsvertraege schreiben	
-//	@GET
-//	@Path("{id:[1-9][0-9]*}/wartungsvertraege")
-//	public Response findWartungsvertraegeByKundeId(@PathParam("id") Long id) {
-//		// Diese Methode ist bewusst NICHT implementiert, um zu zeigen,
-//		// wie man Methodensignaturen an der Schnittstelle fuer andere
-//		// Teammitglieder schon mal bereitstellt, indem einfach ein "Internal
-//		// Server Error (500)" produziert wird.
-//		// Die Kolleg/inn/en koennen nun weiterarbeiten, waehrend man selbst
-//		// gerade keine Zeit hat, weil andere Aufgaben Vorrang haben.
-//		
-//		// TODO findWartungsvertraegeByKundeId noch nicht implementiert
-//		return Response.status(INTERNAL_SERVER_ERROR)
-//				       .entity("findWartungsvertraegeByKundeId: NOT YET IMPLEMENTED")
-//				       .type(TEXT_PLAIN)
-//				       .build();
-//	}
 	
 	@POST
 	@Consumes({APPLICATION_JSON, APPLICATION_XML, TEXT_XML })

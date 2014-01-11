@@ -7,7 +7,9 @@ import static javax.ws.rs.core.MediaType.APPLICATION_XML;
 import static javax.ws.rs.core.MediaType.TEXT_XML;
 
 import java.lang.invoke.MethodHandles;
+import java.math.BigDecimal;
 import java.net.URI;
+import java.util.List;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -61,7 +63,25 @@ public class ArtikelResource {
                        .links(getTransitionalLinks(artikel, uriInfo))
                        .build();
 	}
-	
+//FIXME findArtikelByMaxPreis	
+//	@GET
+//	@Path("{MaximalPreis}")
+//	public Response findArtikelByMaxPreis(@PathParam("preis") BigDecimal preis) {
+//		final List<Artikel> artikel = as.findArtikelByMaxPreis(preis);
+//		return Response.ok(artikel)
+//						.links(getTransitionalLinks(artikel, uriInfo))
+//						.build();
+//		
+//	}
+//	
+//	private Link[] getTransitionalLinks(List<Artikel> artikel, UriInfo uriInfo2) {
+//		final Link self = Link.fromUri(getUriArtikel(aritkel, uriInfo2))
+//								.rel(SELF_LINK)
+//								.build();
+//				
+//		return null;
+//	}
+
 	private Link[] getTransitionalLinks(Artikel artikel, UriInfo uriInfo) {
 		final Link self = Link.fromUri(getUriArtikel(artikel, uriInfo))
                               .rel(SELF_LINK)
