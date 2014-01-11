@@ -57,7 +57,7 @@ public class Bestellposition extends AbstractAuditable {
 	@Transient
 	private URI artikelUri;
 	
-	@Min(value = ANZAHL_MIN, message = "{bestellposition.anzahl.min}")
+	@Min(value = ANZAHL_MIN, message = "{bestellverwaltung.bestellposition.anzahl.min}")
 	@Basic(optional = false)
 	private short anzahl;
 	
