@@ -8,10 +8,8 @@ import static javax.ws.rs.core.MediaType.TEXT_PLAIN;
 import static javax.ws.rs.core.MediaType.TEXT_XML;
 
 import java.lang.invoke.MethodHandles;
-import java.math.BigDecimal;
 import java.net.URI;
 
-import java.util.List;
 import java.util.Collection;
 
 import javax.enterprise.context.RequestScoped;
