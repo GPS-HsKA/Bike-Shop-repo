@@ -19,6 +19,7 @@ import javax.validation.constraints.Size;
 import com.google.common.base.Strings;
 
 import de.shop.artikelverwaltung.domain.Artikel;
+import de.shop.kundenverwaltung.domain.AbstractKunde;
 import de.shop.util.interceptor.Log;
 
 
@@ -92,6 +93,12 @@ public class ArtikelService implements Serializable {
 		
 		return em.createQuery(criteriaQuery)
 		         .getResultList();
+	}
+	
+	public List<String> findBezeichnungByPrefix(String bezeichnungPrefix) {
+		return em.createNamedQuery(Artikel.FIND_BEZEICHNUNG_BY_PREFIX, String.class)
+				 .setParameter(Artikel.PARAM_ARTIKEL_BEZEICHNUNG_PREFIX, bezeichnungPrefix + '%')
+				 .getResultList();
 	}
 
 	
