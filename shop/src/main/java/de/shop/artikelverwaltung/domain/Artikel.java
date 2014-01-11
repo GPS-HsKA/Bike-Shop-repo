@@ -21,14 +21,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.jboss.logging.Logger;
 
+import de.shop.kundenverwaltung.domain.AbstractKunde;
 import de.shop.util.persistence.AbstractAuditable;
+
 
 @XmlRootElement
 @Entity
 @Table(indexes = @Index(columnList = "bezeichnung"))
-
-//NamedQueries
-
 @NamedQueries({
 	@NamedQuery(name  = Artikel.FIND_VERFUEGBARE_ARTIKEL,
             	query = "SELECT      a"
@@ -47,9 +46,11 @@ import de.shop.util.persistence.AbstractAuditable;
 						+ " WHERE    a.preis < :" + Artikel.PARAM_PREIS
 			 	        + " ORDER BY a.id ASC")
 })
-
 public class Artikel extends AbstractAuditable {
 
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = -7595241091410918682L;
 
 	private static final Logger LOGGER = Logger.getLogger(MethodHandles.lookup().lookupClass());
