@@ -31,8 +31,6 @@ import de.shop.bestellverwaltung.domain.Bestellung_;
 import de.shop.kundenverwaltung.domain.AbstractKunde;
 import de.shop.kundenverwaltung.domain.AbstractKunde_;
 import de.shop.kundenverwaltung.domain.Adresse_;
-//TODO Wartungsvertrag
-//import de.shop.kundenverwaltung.domain.Wartungsvertrag;
 import de.shop.util.interceptor.Log;
 
 @Dependent
